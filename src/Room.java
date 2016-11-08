@@ -9,6 +9,10 @@ public class Room
 	private String roomType;
 	private static Map<GregorianCalendar, Reservation> availability;
 	
+	/**
+	 * Consturctor: creates a room object.
+	 * @param roomType String value stating whether the room is Luxury or Economic
+	 */
 	public Room(String roomType) 
 	{
 		//test = new

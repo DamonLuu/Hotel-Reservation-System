@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Calendar;
 
 public class Room 
 {
@@ -35,7 +36,7 @@ public class Room
 	 * @param date the date for which we want to check the room's availability
 	 * @return true if room is available, false if room is not available.
 	 */
-	public boolean checkAvailbility(GregorianCalendar date)
+	public boolean checkAvailability(GregorianCalendar date)
 	{
 		if(reservationsMade.containsKey(date))
 		{
@@ -43,7 +44,7 @@ public class Room
 		}
 		else
 		{
-		return true;
+			return true;
 		}
 		
 	}
@@ -55,7 +56,18 @@ public class Room
 	 */
 	public void reserveRoom(Reservation rObj)
 	{
-		//reservationsMade.put(rObj.getDate(), rObj);
+		GregorianCalendar date = rObj.getStartDate();
+		
+		while(date.before(rObj.getEndDate()))
+		{
+			reservationsMade.put(date, rObj);
+			
+			//System.out.println(date.toString());
+			date.add(GregorianCalendar.DAY_OF_MONTH, 1);
+			date = new GregorianCalendar(date.get(GregorianCalendar.YEAR),date.get(GregorianCalendar.MONTH),date.get(GregorianCalendar.DAY_OF_MONTH));
+			
+		}
+		
 	}
 	
 	
@@ -67,4 +79,42 @@ public class Room
 	{
 		return reservationsMade;
 	}
+
+
+	public static void main(String[] args)
+	{
+		Room room1 = new Room("economy");
+		
+		Account a1 = new Account("1234","John","Smith");
+		
+		GregorianCalendar checkInDate = new GregorianCalendar(2016,10,15); //month 10 means october
+		GregorianCalendar checkOutDate = new GregorianCalendar(2016,10,20); 
+		//i think since someone can check in same date someone else checkout, it is avaialble. Will ask Dr. Kim.
+		
+		Reservation rObj1 = new Reservation(checkInDate,checkOutDate,room1,a1);
+		room1.reserveRoom(rObj1);
+		
+		
+		//room1.reservationsMade.put(new GregorianCalendar(2016,10,17),rObj1);
+		//GregorianCalendar temp = new GregorianCalendar(2016,10,18);
+		//System.out.println(temp.toString());
+		
+		
+		System.out.println("room available on 2016/11/18?");
+		System.out.println(room1.checkAvailability(new GregorianCalendar(2016,10,18)));
+		
+		System.out.println("room available on 2016/11/22?");
+		System.out.println(room1.checkAvailability(new GregorianCalendar(2016,10,22)));
+		
+		//for(GregorianCalendar t : reservationsMade.keySet())
+		//{
+		//	System.out.print(t.get(Calendar.MONTH));
+		//	System.out.print(t.get(Calendar.DAY_OF_MONTH));
+		//	System.out.println(t.get(Calendar.YEAR));
+		//}
+		
+	
+	}
+
+
 }

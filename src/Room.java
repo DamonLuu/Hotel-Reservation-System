@@ -9,7 +9,7 @@ public class Room
 	private int cost;
 	private int roomNumber;
 	private String roomType;
-	private static Map<GregorianCalendar, Reservation> availability;
+	private static Map<GregorianCalendar, Reservation> reservationsMade;
 	
 	/**
 	 * Consturctor: creates a room object.
@@ -27,16 +27,44 @@ public class Room
 		{
 			roomType = "Economic";
 		}
-		availability = new TreeMap<GregorianCalendar, Reservation>();
+		reservationsMade = new TreeMap<GregorianCalendar, Reservation>();
 	}
 	
-	public boolean checkAvailbility(Date date)
+	/**
+	 * Checks if the room is available on the given date
+	 * @param date the date for which we want to check the room's availability
+	 * @return true if room is available, false if room is not available.
+	 */
+	public boolean checkAvailbility(GregorianCalendar date)
 	{
-		return false;
+		if(reservationsMade.containsKey(date))
+		{
+			return false;
+		}
+		else
+		{
+		return true;
+		}
+		
 	}
 	
+	
+	/**
+	 * Complete the reservation, saving it to the room's treeMap.
+	 * @param rObj reservation object 
+	 */
+	public void reserveRoom(Reservation rObj)
+	{
+		//reservationsMade.put(rObj.getDate(), rObj);
+	}
+	
+	
+	/**
+	 * Accessor method
+	 * @return get the treeMap containing reservations made for the room.
+	 */
 	public Map<GregorianCalendar, Reservation> getAvailability()
 	{
-		return availability;
+		return reservationsMade;
 	}
 }

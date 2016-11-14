@@ -54,8 +54,6 @@ public class WelcomeFrame extends JFrame
 		buttonPanel.add(signUpButton);
 
 		
-
-		
 		this.add(welcomeLabel);
 		this.add(radioPanel);
 		this.add(loginPanel);

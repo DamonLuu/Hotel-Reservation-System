@@ -15,5 +15,28 @@ public class Account
 		reservations = new ArrayList<Reservation>();
 	}
 	
+	public String getLoginID()
+	{
+		return loginID;
+	}
 	
+	public String getFirstName()
+	{
+		return firstName;
+	}
+	
+	public String getLastName()
+	{
+		return lastName;
+	}
+	
+	public ArrayList<Reservation> getReservations()
+	{
+		return reservations;
+	}
+	
+	public String toString()
+	{
+		return "Login id: " + loginID + " Name: " + getFirstName() + " " + getLastName();
+	}
 }

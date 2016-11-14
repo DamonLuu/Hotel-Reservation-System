@@ -14,9 +14,29 @@ public class Reservation
 		this.room = room;
 		this.account = account;
 		//check if room is open
-		room.getAvailability().put(startDate, this);
+		//room.getAvailability().put(startDate, this);
 		
 	}
+	
+	/**
+	 * Accessor method to get the start (check-in) date for the reservation
+	 * @return GregorianCalendar startDate instance variable
+	 */
+	public GregorianCalendar getStartDate()
+	{
+		return startDate;
+	}
+	
+	/**
+	 * Accessor method to get the end (check-out) date for the reservation
+	 * @return GregorianCalendar endDate instance variable
+	 */
+	public GregorianCalendar getEndDate()
+	{
+		return endDate;
+	}
+	
+	
 	
 	public void checkRoom()
 	{

@@ -20,20 +20,20 @@ public class Reservation
 	
 	/**
 	 * Accessor method to get the start (check-in) date for the reservation
-	 * @return GregorianCalendar startDate instance variable
+	 * @return GregorianCalendar object that is clone of startDate instance variable
 	 */
 	public GregorianCalendar getStartDate()
 	{
-		return startDate;
+		return (GregorianCalendar) startDate.clone();
 	}
 	
 	/**
 	 * Accessor method to get the end (check-out) date for the reservation
-	 * @return GregorianCalendar endDate instance variable
+	 * @return GregorianCalendar object that is clone of endDate instance variable
 	 */
 	public GregorianCalendar getEndDate()
 	{
-		return endDate;
+		return (GregorianCalendar) endDate.clone();
 	}
 	
 	

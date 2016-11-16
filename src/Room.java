@@ -118,6 +118,10 @@ public class Room
 		return result;
 	}
 	
+	/**
+	 * main method for testing Room class only. Does not affect compilation of MainTester.
+	 * @param args not used.
+	 */
 	public static void main(String[] args)
 	{
 		Room room1 = new Room("economy");
@@ -126,17 +130,12 @@ public class Room
 		
 		GregorianCalendar checkInDate = new GregorianCalendar(2016,10,15); //month 10 means November
 		GregorianCalendar checkOutDate = new GregorianCalendar(2016,10,20); 
-		//i think since someone can check in same date someone else checkout, it is avaialble. Will ask Dr. Kim.
 		
 		Reservation rObj1 = new Reservation(checkInDate,checkOutDate,room1,a1);
 		
 		System.out.println("Make reservation with check-in 11/15, check-out 11/20");
 		room1.reserveRoom(rObj1);
 		
-		
-		//room1.reservationsMade.put(new GregorianCalendar(2016,10,17),rObj1);
-		//GregorianCalendar temp = new GregorianCalendar(2016,10,18);
-		//System.out.println(temp.toString());
 
 		System.out.println("room available on 2016/11/14?");
 		System.out.println(room1.checkAvailability("20161114"));
@@ -153,18 +152,7 @@ public class Room
 		System.out.println("room available on 2016/11/22?");
 		System.out.println(room1.checkAvailability("20161122"));		
 		
-		//System.out.println(rObj1.getStartDate());
-		
-		
-		
-		//for(GregorianCalendar t : reservationsMade.keySet())
-		//{
-		//	System.out.print(t.get(Calendar.MONTH));
-		//	System.out.print(t.get(Calendar.DAY_OF_MONTH));
-		//	System.out.println(t.get(Calendar.YEAR));
-		//}
-		
-	
+
 	}
 
 

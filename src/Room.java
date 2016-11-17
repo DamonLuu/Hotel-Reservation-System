@@ -70,8 +70,6 @@ public class Room
 			
 			reservationsMade.put(key, rObj);
 			
-			//System.out.println(date.toString());
-			
 			date.add(GregorianCalendar.DAY_OF_MONTH, 1);
 			//date = new GregorianCalendar(date.get(GregorianCalendar.YEAR),date.get(GregorianCalendar.MONTH),date.get(GregorianCalendar.DAY_OF_MONTH));
 			

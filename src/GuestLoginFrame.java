@@ -1,6 +1,8 @@
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -11,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class GuestLoginFrame extends JFrame
 {
@@ -27,18 +30,7 @@ public class GuestLoginFrame extends JFrame
 		welcomeLabel.setAlignmentX(CENTER_ALIGNMENT);
 		welcomeLabel.setFont(new Font("Calibri", Font.BOLD, 30));
 		welcomeLabel.setPreferredSize(new Dimension(500, 100));
-		
-		//JRadioButton hotelGuestRadio = new JRadioButton("Hotel Guest");
-		//JRadioButton hotelManagerRadio = new JRadioButton("Hotel Manager");
-		
-		//ButtonGroup buttonGroup = new ButtonGroup();
-		//buttonGroup.add(hotelGuestRadio);
-		//buttonGroup.add(hotelManagerRadio);
-		
-		//JPanel radioPanel = new JPanel();
-		//radioPanel.add(hotelManagerRadio);
-		//radioPanel.add(hotelGuestRadio);
-		
+			
 		JPanel loginPanel = new JPanel();
 		loginPanel.setLayout(new GridLayout(2, 2));
 		JLabel loginLabel = new JLabel("      Login ID:");
@@ -49,22 +41,53 @@ public class GuestLoginFrame extends JFrame
 		loginPanel.add(loginTextfield);
 		loginPanel.add(guestNameLabel);
 		loginPanel.add(nameField);
-		//loginPanel.add(passwordField);
-		
+
 		JPanel buttonPanel = new JPanel();
 		JButton loginButton = new JButton("Login");
-		//JButton signUpButton = new JButton("Sign Up");
-		buttonPanel.add(loginButton);
-		//buttonPanel.add(signUpButton);
-
+		loginButton.addActionListener(new ActionListener()  //if login is successful
+		{		
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				dispose();
+				GuestReservationOptionFrame();
+			}
+		});
 		
+		buttonPanel.add(loginButton);	
 		this.add(welcomeLabel);
-		//this.add(radioPanel);
 		this.add(loginPanel);
 		this.add(buttonPanel);
-		
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 	
+	public void GuestReservationOptionFrame()
+	{
+		JFrame guestReservationOptionFrame = new JFrame();
+		//guestReservationOptionFrame.setSize(350, 350);
+		//guestReservationOptionFrame.setLayout(new BoxLayout(guestReservationOptionFrame.getContentPane(), BoxLayout.Y_AXIS));
+		
+		JPanel container = new JPanel();
+		container.setPreferredSize(new Dimension(350, 350));
+		
+		JLabel optionLabel = new JLabel("Choose an Option", SwingConstants.CENTER);
+		optionLabel.setFont(new Font("Calibri", Font.BOLD, 30));
+		optionLabel.setPreferredSize(new Dimension(325, 100));
+		
+		JButton makeReservationButton = new JButton("Make a Reservation");
+		makeReservationButton.setPreferredSize(new Dimension(300,100));
+		
+		JButton viewOrCancelReservationButton = new JButton("View/Cancel a Reservation");
+		viewOrCancelReservationButton.setPreferredSize(new Dimension(300,100));
+		
+		container.add(optionLabel);
+		container.add(makeReservationButton);
+		container.add(viewOrCancelReservationButton);
+		
+		guestReservationOptionFrame.setResizable(false);
+		guestReservationOptionFrame.add(container);
+		guestReservationOptionFrame.pack();
+		guestReservationOptionFrame.setVisible(true);
+	}
 }

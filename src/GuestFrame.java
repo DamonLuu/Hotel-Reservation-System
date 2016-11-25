@@ -32,12 +32,13 @@ public class GuestFrame extends JFrame
 		welcomeLabel.setFont(new Font("Calibri", Font.BOLD, 18));
 		welcomeLabel.setPreferredSize(new Dimension(325, 100));
 
-		JButton returningGuestButton = new JButton("Returning Guest");
+		JButton returningGuestButton = new JButton("Returning Guest / Login");
 		returningGuestButton.setPreferredSize(new Dimension(300,100));
 		returningGuestButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				dispose();
 				GuestLoginFrame frame = new GuestLoginFrame();
 			}
 		});
@@ -62,6 +63,7 @@ public class GuestFrame extends JFrame
 		pack();
 
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 }

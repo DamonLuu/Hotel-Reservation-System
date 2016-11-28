@@ -148,8 +148,19 @@ public class Room
 		System.out.println(room1.checkAvailability("20161120"));
 		
 		System.out.println("room available on 2016/11/22?");
-		System.out.println(room1.checkAvailability("20161122"));		
+		System.out.println(room1.checkAvailability("20161122"));
 		
+		
+		ReservationManager rm = new ReservationManager();
+		
+		ArrayList<Integer> availableRooms = rm.findRoom("11/27/2016", "12/02/2016", "Luxurious");
+		
+		System.out.println("Available Luxurious rooms in date range 11/27/2016-12/02/2016");
+		
+		for(Integer RoomNumber: availableRooms)
+		{
+			System.out.println("Room #"+RoomNumber);
+		}
 
 	}
 

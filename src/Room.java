@@ -13,7 +13,7 @@ public class Room
 	private static Map<String, Reservation> reservationsMade;
 	
 	/**
-	 * Consturctor: creates a room object.
+	 * Constructor: creates a room object.
 	 * @param roomType String value stating whether the room is Luxury or Economic
 	 */
 	public Room(String roomType) 

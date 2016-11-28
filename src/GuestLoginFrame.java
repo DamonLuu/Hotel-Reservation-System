@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -12,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -77,9 +79,25 @@ public class GuestLoginFrame extends JFrame
 		
 		JButton makeReservationButton = new JButton("Make a Reservation");
 		makeReservationButton.setPreferredSize(new Dimension(300,100));
+		makeReservationButton.addActionListener(new ActionListener()
+		{	
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				makeReservationFrame();
+			}
+		});
 		
 		JButton viewOrCancelReservationButton = new JButton("View/Cancel a Reservation");
 		viewOrCancelReservationButton.setPreferredSize(new Dimension(300,100));
+		viewOrCancelReservationButton.addActionListener(new ActionListener()
+		{	
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				viewOrCancelReservationFrame();
+			}
+		});
 		
 		container.add(optionLabel);
 		container.add(makeReservationButton);
@@ -89,5 +107,80 @@ public class GuestLoginFrame extends JFrame
 		guestReservationOptionFrame.add(container);
 		guestReservationOptionFrame.pack();
 		guestReservationOptionFrame.setVisible(true);
+	}
+	
+	public void makeReservationFrame()
+	{
+		JFrame makeReservationFrame = new JFrame("Make a Reservation");
+		makeReservationFrame.setLayout(new BorderLayout());
+		
+		JPanel topPanel = new JPanel();
+		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));		
+		
+		JPanel datePanel = new JPanel();
+		datePanel.setLayout(new GridLayout(2, 2));
+		
+		JLabel checkInLabel = new JLabel("Check In Date:");
+		JTextField checkInText = new JTextField("11/25/2016");		
+		JLabel checkOutLabel = new JLabel("Check Out Date:");
+		JTextField checkOutText = new JTextField("11/27/2016");
+		
+		datePanel.add(checkInLabel);
+		datePanel.add(checkInText);
+		datePanel.add(checkOutLabel);
+		datePanel.add(checkOutText);
+		topPanel.add(datePanel);
+		
+		JRadioButton economyButton = new JRadioButton("Economy $80");
+		JRadioButton luxuryButton = new JRadioButton("Luxury $200");
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(economyButton);
+		buttonGroup.add(luxuryButton);
+		buttonGroup.setSelected(luxuryButton.getModel(), true);
+		
+		JPanel buttonPanel = new JPanel();
+		JLabel roomType = new JLabel("Room Type: ");
+		buttonPanel.add(roomType);
+		buttonPanel.add(economyButton);
+		buttonPanel.add(luxuryButton);
+		topPanel.add(buttonPanel);
+		
+		JTextArea changeLater = new JTextArea("Change this later to show all available rooms");
+		changeLater.setPreferredSize(new Dimension(275,250));
+		
+		JPanel southPanel = new JPanel();
+		JButton confirmButton = new JButton("Confirm Transaction");
+		JButton completeButton = new JButton("Return");
+		southPanel.add(confirmButton);
+		southPanel.add(completeButton);
+		
+		
+		makeReservationFrame.add(topPanel, BorderLayout.NORTH);
+		makeReservationFrame.add(changeLater, BorderLayout.CENTER);
+		makeReservationFrame.add(southPanel, BorderLayout.SOUTH);
+		
+		makeReservationFrame.pack();
+		//makeReservationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		makeReservationFrame.setVisible(true);		
+	}
+	
+	public void viewOrCancelReservationFrame()
+	{
+		JFrame cancelReservationFrame = new JFrame("View/Cancel Reservation");
+		cancelReservationFrame.setLayout(new BorderLayout());
+		
+		JLabel topLabel = new JLabel("Listed below is all your reservations");
+		
+		JTextArea changeLater = new JTextArea("Change this later to show all reservations");
+		changeLater.setPreferredSize(new Dimension(275,250));
+		
+		JButton cancelButton = new JButton("Cancel Selected Reservation");
+		
+		cancelReservationFrame.add(topLabel, BorderLayout.NORTH);
+		cancelReservationFrame.add(changeLater, BorderLayout.CENTER);
+		cancelReservationFrame.add(cancelButton, BorderLayout.SOUTH);
+		
+		cancelReservationFrame.pack();
+		cancelReservationFrame.setVisible(true);
 	}
 }

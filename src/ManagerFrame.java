@@ -16,6 +16,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class ManagerFrame
 {
@@ -25,8 +27,8 @@ public class ManagerFrame
 		managerFrame.setLayout(new BorderLayout());
 		
 		JLabel topLabel = new JLabel("Mananger User Interface", SwingConstants.CENTER);
-		topLabel.setFont(new Font("Calibri", Font.BOLD, 30));
-		topLabel.setPreferredSize(new Dimension(350, 75));
+		topLabel.setFont(new Font("Calibri", Font.BOLD, 25));
+		topLabel.setPreferredSize(new Dimension(350, 60));
 				
 		JPanel centerPanel = new JPanel();
 		JTextField changeLater = new JTextField("Someone put a calendar here");
@@ -42,8 +44,19 @@ public class ManagerFrame
 		bottomPanel.add(loadButton);
 		bottomPanel.add(saveButton);
 		
+		TestCalendar calendar = new TestCalendar();
+
+		calendar.addListener(new ChangeListener(){
+	         public void stateChanged(ChangeEvent e)
+	         {
+	            //view ... model in CalendarPanelJC
+	            //setView();
+	            //ManagerFrame.this.
+	         }
+	      });
+		
 		managerFrame.add(topLabel, BorderLayout.NORTH);
-		managerFrame.add(centerPanel, BorderLayout.CENTER);
+		managerFrame.add(calendar, BorderLayout.CENTER);
 		managerFrame.add(rightTextField, BorderLayout.EAST);
 		managerFrame.add(bottomPanel,BorderLayout.SOUTH);
 		managerFrame.pack();

@@ -5,7 +5,7 @@ public class DamonTest {
 		new WelcomeFrame();
 		//new GuestLoginFrame().makeReservationFrame();
 		//new ManagerFrame();
-		//test github
+		//test githubbot
 		
 		
 		

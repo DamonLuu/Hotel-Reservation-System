@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class AccountManager 
 {
@@ -11,7 +12,7 @@ public class AccountManager
 	{
 		for(Account a : acc)
 		{
-			if(a.getLoginID.equals(loginID))
+			if(a.getLoginID().equals(loginID))
 				return a;
 		}
 		return null;

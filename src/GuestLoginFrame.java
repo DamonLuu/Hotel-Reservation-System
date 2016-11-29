@@ -149,11 +149,52 @@ public class GuestLoginFrame extends JFrame
 		changeLater.setPreferredSize(new Dimension(275,250));
 		
 		JPanel southPanel = new JPanel();
-		JButton confirmButton = new JButton("Confirm Transaction");
-		JButton completeButton = new JButton("Return");
-		southPanel.add(confirmButton);
-		southPanel.add(completeButton);
+		southPanel.setLayout(new BorderLayout());
 		
+		JPanel roomNumberPanel = new JPanel();
+		JLabel enterRoomLabel = new JLabel("Enter the room number to reserve.");
+		JTextField roomNumberTextArea = new JTextField("Room #");
+		roomNumberPanel.add(enterRoomLabel);
+		roomNumberPanel.add(roomNumberTextArea);
+
+		
+		JPanel bottomButtonPanel = new JPanel();
+		JButton confirmButton = new JButton("Confirm");
+		confirmButton.addActionListener(new ActionListener() 
+		{	
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
+		
+		JButton moreButton = new JButton("More Reservations?");
+		moreButton.addActionListener(new ActionListener()
+		{	
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+			}
+		});
+		
+		JButton doneButton = new JButton("Done");
+		doneButton.addActionListener(new ActionListener() 
+		{			
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				makeReservationFrame.dispose();
+			}
+		});
+		
+		bottomButtonPanel.add(confirmButton);
+		bottomButtonPanel.add(moreButton);
+		bottomButtonPanel.add(doneButton);
+		
+		southPanel.add(roomNumberPanel, BorderLayout.NORTH);
+		southPanel.add(bottomButtonPanel, BorderLayout.SOUTH);
 		
 		makeReservationFrame.add(topPanel, BorderLayout.NORTH);
 		makeReservationFrame.add(changeLater, BorderLayout.CENTER);
@@ -175,6 +216,14 @@ public class GuestLoginFrame extends JFrame
 		changeLater.setPreferredSize(new Dimension(275,250));
 		
 		JButton cancelButton = new JButton("Cancel Selected Reservation");
+		cancelButton.addActionListener(new ActionListener() 
+		{	
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+			}
+		});
 		
 		cancelReservationFrame.add(topLabel, BorderLayout.NORTH);
 		cancelReservationFrame.add(changeLater, BorderLayout.CENTER);

@@ -25,12 +25,12 @@ public class GuestFrame extends JFrame
 
 
 		JPanel container = new JPanel();
-		container.setPreferredSize(new Dimension(350, 350));
+		container.setPreferredSize(new Dimension(300, 300));
 		//container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
 		JLabel welcomeLabel = new JLabel("Guest Options", SwingConstants.CENTER);
-		welcomeLabel.setFont(new Font("Calibri", Font.BOLD, 18));
-		welcomeLabel.setPreferredSize(new Dimension(325, 100));
+		welcomeLabel.setFont(new Font("Calibri", Font.BOLD, 25));
+		welcomeLabel.setPreferredSize(new Dimension(325, 75));
 
 		JButton returningGuestButton = new JButton("Returning Guest / Login");
 		returningGuestButton.setPreferredSize(new Dimension(300,100));

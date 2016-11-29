@@ -24,12 +24,12 @@ public class WelcomeFrame extends JFrame
 
 
 		JPanel container = new JPanel();
-		container.setPreferredSize(new Dimension(350, 350));
+		container.setPreferredSize(new Dimension(450, 325));
 
 		JLabel welcomeLabel = new JLabel("  Welcome to the Pineapple Hotel", SwingConstants.CENTER);
-		welcomeLabel.setAlignmentX(CENTER_ALIGNMENT);
-		welcomeLabel.setFont(new Font("Calibri", Font.BOLD, 18));
-		welcomeLabel.setPreferredSize(new Dimension(325, 100));
+		//welcomeLabel.setAlignmentX(CENTER_ALIGNMENT);
+		welcomeLabel.setFont(new Font("Calibri", Font.BOLD, 30));
+		welcomeLabel.setPreferredSize(new Dimension(450, 100));
 
 		JButton guestButton = new JButton("Hotel Guest");
 		guestButton.setPreferredSize(new Dimension(300,100));
@@ -37,12 +37,20 @@ public class WelcomeFrame extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				GuestFrame frame = new GuestFrame();
+				new GuestFrame();
 			}
 		});
 
 		JButton managerButton = new JButton("Hotel Manager");
 		managerButton.setPreferredSize(new Dimension(300,100));
+		managerButton.addActionListener(new ActionListener() 
+		{
+
+			public void actionPerformed(ActionEvent e) 
+			{
+				new ManagerFrame();
+			}
+		});
 
 		container.add(welcomeLabel);
 		container.add(guestButton);

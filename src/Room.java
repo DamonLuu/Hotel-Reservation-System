@@ -23,12 +23,34 @@ public class Room
 		if (roomType.startsWith("l"))
 		{
 			roomType = "Luxurious";
+			cost = 200;
 		}
 		else if (roomType.startsWith("e"))
 		{
 			roomType = "Economic";
+			cost = 80;
 		}
 		reservationsMade = new TreeMap<String, Reservation>();
+	}
+	
+	/**
+	 * Constructor (overloaded): creates a room object and initialize room number
+	 * @param roomType "Luxurious" or "Economic" (case doens't matter)
+	 * @param roomNum integer representing the room number.
+	 */
+	public Room(String roomType, int roomNum)
+	{
+		this(roomType);
+		roomNumber = roomNum;
+	}
+	
+	/**
+	 * Accessor method to get the room number
+	 * @return room number as an integer.
+	 */
+	public int getRoomNumber()
+	{
+		return roomNumber;
 	}
 	
 	/**
@@ -149,6 +171,9 @@ public class Room
 		
 		System.out.println("room available on 2016/11/22?");
 		System.out.println(room1.checkAvailability("20161122"));
+		
+		Room roomX = new Room("luxurious",101);
+		System.out.println("room number:"+ roomX.getRoomNumber());
 		
 		
 		ReservationManager rm = new ReservationManager();

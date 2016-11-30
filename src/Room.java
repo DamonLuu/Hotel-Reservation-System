@@ -43,7 +43,14 @@ public class Room
 		this(roomType);
 		roomNumber = roomNum;
 	}
-	
+	/**
+	 * Accessor method to get the cost
+	 * @return cost as an int.
+	 */
+	public int getCost()
+	{
+		return cost;
+	}
 	/**
 	 * Accessor method to get the room number
 	 * @return room number as an integer.
@@ -52,7 +59,14 @@ public class Room
 	{
 		return roomNumber;
 	}
-	
+	/**
+	 * Accessor method to get the room type
+	 * @return room type as a String.
+	 */
+	public String getRoomType()
+	{
+		return roomType;
+	}
 	/**
 	 * Checks if the room is available on the given date
 	 * @param date the date for which we want to check the room's availability

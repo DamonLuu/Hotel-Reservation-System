@@ -35,7 +35,14 @@ public class Reservation
 	{
 		return (GregorianCalendar) endDate.clone();
 	}
-	
+	/**
+	 * Accessor method to get the room
+	 * @return room of reservation
+	 */
+	public Room getRoom()
+	{
+		return room;
+	}
 	
 	
 	public void checkRoom()

@@ -17,5 +17,9 @@ public class AccountManager
 		}
 		return null;
 	}
-
+	public void addAccount(String loginID,String firstName,String lastName)
+	{
+		Account e = new Account(loginID,firstName,lastName);
+		acc.add(e);
+	}
 }

@@ -19,7 +19,13 @@ import javax.swing.SwingConstants;
 public class GuestSignUpFrame extends JFrame
 {
 	
-	//private Model model;
+	private ReservationManager model;
+	
+	public GuestSignUpFrame(ReservationManager m)
+	{
+		this();
+		model = m;
+	}
 	
 	public GuestSignUpFrame() //PUT MODEL IN PARAMETERS 
 	{
@@ -61,8 +67,9 @@ public class GuestSignUpFrame extends JFrame
 				
 				if(!loginID.isEmpty() && !guestName.isEmpty() && !lastName.isEmpty())
 				{
-					Account guest = new Account(loginID, guestName, lastName);
-					System.out.println(guest.toString());
+					//Account guest = new Account(loginID, guestName, lastName);
+					model.getAccountManager().addAccount(loginID, guestName, lastName);
+					//System.out.println(guest.toString());
 					dispose();
 				}
 				else

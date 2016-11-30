@@ -6,7 +6,7 @@ public class ReservationManager
 {
 	private Room[] luxRooms = new Room[11];
 	private Room[] econRooms = new Room[10];
-	
+	GregorianCalendar selectedDate;
 	
 	
 	
@@ -20,6 +20,7 @@ public class ReservationManager
 		
 		for(int i=0;i<econRooms.length;i++)
 		{econRooms[i] = new Room("Luxurious");}
+		
 		
 	}
 	

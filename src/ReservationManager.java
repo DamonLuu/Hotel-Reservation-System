@@ -4,7 +4,7 @@ import java.util.GregorianCalendar;
 
 public class ReservationManager 
 {
-	private Room[] luxRooms = new Room[10];
+	private Room[] luxRooms = new Room[11];
 	private Room[] econRooms = new Room[10];
 	
 	
@@ -28,9 +28,9 @@ public class ReservationManager
 	 * @param checkIn String format MM/DD/YYYY
 	 * @param checkOut String in format MM/DD/YYYY
 	 * @param roomType luxurious or economic
-	 * @return
+	 * @return String including all available rooms.
 	 */
-	public ArrayList<Integer> findRoom(String checkIn, String checkOut, String roomType)
+	public String findRoom(String checkIn, String checkOut, String roomType)
 	{
 		Room[] rooms2search;
 		
@@ -51,7 +51,10 @@ public class ReservationManager
 			rooms2search = econRooms;
 		}
 			
-		ArrayList<Integer> openRooms = new ArrayList<>();
+		//ArrayList<Integer> openRooms = new ArrayList<>();
+		
+		
+		String stringOfAvailRooms="";
 		
 		outsideLoop:
 		for(int i=0;i<rooms2search.length;i++)
@@ -67,12 +70,12 @@ public class ReservationManager
 				}
 				tempDate.add(Calendar.DAY_OF_MONTH,1);
 			}
-			openRooms.add(i);
-			
+			//openRooms.add(i);
+			stringOfAvailRooms=stringOfAvailRooms+"Room #"+i+"\n";
 			
 		}
 		
-		return openRooms;
+		return stringOfAvailRooms;
 	
 	}
 	

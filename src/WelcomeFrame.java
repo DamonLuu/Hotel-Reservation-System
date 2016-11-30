@@ -16,20 +16,26 @@ import javax.swing.SwingConstants;
 public class WelcomeFrame extends JFrame
 {
 
-	//private Model model;
+	private ReservationManager model;
 
+	public WelcomeFrame(ReservationManager model)
+	{
+		this();
+		this.model = model;
+	}
+	
 	public WelcomeFrame() //PUT MODEL IN PARAMETERS 
 	{
 		this.setTitle("Pen Pineapple Apple Pen Hotel Reservation System");
 
 
 		JPanel container = new JPanel();
-		container.setPreferredSize(new Dimension(450, 325));
+		container.setPreferredSize(new Dimension(475, 325));
 
 		JLabel welcomeLabel = new JLabel("  Welcome to the Pineapple Hotel", SwingConstants.CENTER);
 		//welcomeLabel.setAlignmentX(CENTER_ALIGNMENT);
-		welcomeLabel.setFont(new Font("Calibri", Font.BOLD, 30));
-		welcomeLabel.setPreferredSize(new Dimension(450, 100));
+		welcomeLabel.setFont(new Font("Calibri", Font.BOLD, 25));
+		welcomeLabel.setPreferredSize(new Dimension(475, 100));
 
 		JButton guestButton = new JButton("Hotel Guest");
 		guestButton.setPreferredSize(new Dimension(300,100));
@@ -37,7 +43,7 @@ public class WelcomeFrame extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				new GuestFrame();
+				new GuestFrame(model);
 			}
 		});
 

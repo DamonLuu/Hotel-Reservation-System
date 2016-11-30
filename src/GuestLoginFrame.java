@@ -20,7 +20,13 @@ import javax.swing.SwingConstants;
 public class GuestLoginFrame extends JFrame
 {
 	
-	//private Model model;
+	private ReservationManager model;
+	
+	public GuestLoginFrame(ReservationManager m)
+	{
+		this();
+		model = m;
+	}
 	
 	public GuestLoginFrame() //PUT MODEL IN PARAMETERS 
 	{
@@ -131,10 +137,23 @@ public class GuestLoginFrame extends JFrame
 		datePanel.add(checkOutText);
 		topPanel.add(datePanel);
 		
+		String button = "";
 		JRadioButton economyButton = new JRadioButton("Economy $80");
 		JRadioButton luxuryButton = new JRadioButton("Luxury $200");
 		ButtonGroup buttonGroup = new ButtonGroup();
+		
+		if (economyButton.isSelected())
+		{
+			button = "Economy";
+		}
+		else if (luxuryButton.isSelected())
+		{
+			button = "Luxury";
+		}
+		
 		buttonGroup.add(economyButton);
+		
+		
 		buttonGroup.add(luxuryButton);
 		buttonGroup.setSelected(luxuryButton.getModel(), true);
 		
@@ -145,7 +164,8 @@ public class GuestLoginFrame extends JFrame
 		buttonPanel.add(luxuryButton);
 		topPanel.add(buttonPanel);
 		
-		JTextArea changeLater = new JTextArea("Change this later to show all available rooms");
+		//JTextArea changeLater = new JTextArea("Change this later to show all available rooms");
+		JTextArea changeLater = new JTextArea(model.findRoom(checkInText.getText(), checkOutText.getText(), button));
 		changeLater.setPreferredSize(new Dimension(275,250));
 		
 		JPanel southPanel = new JPanel();

@@ -16,7 +16,13 @@ import javax.swing.SwingConstants;
 
 public class GuestFrame extends JFrame
 {
-	//private Model model;
+	private ReservationManager model;
+	
+	public GuestFrame(ReservationManager m)
+	{
+		this();
+		model = m;
+	}
 
 	public GuestFrame() //PUT MODEL IN PARAMETERS 
 	{
@@ -39,7 +45,7 @@ public class GuestFrame extends JFrame
 			public void actionPerformed(ActionEvent e) 
 			{
 				dispose();
-				GuestLoginFrame frame = new GuestLoginFrame();
+				GuestLoginFrame frame = new GuestLoginFrame(model);
 			}
 		});
 

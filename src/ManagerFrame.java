@@ -44,19 +44,10 @@ public class ManagerFrame
 		bottomPanel.add(loadButton);
 		bottomPanel.add(saveButton);
 		
-		TestCalendar calendar = new TestCalendar();
-
-		calendar.addListener(new ChangeListener(){
-	         public void stateChanged(ChangeEvent e)
-	         {
-	            //view ... model in CalendarPanelJC
-	            //setView();
-	            //ManagerFrame.this.
-	         }
-	      });
+	
 		
 		managerFrame.add(topLabel, BorderLayout.NORTH);
-		managerFrame.add(calendar, BorderLayout.CENTER);
+		managerFrame.add(changeLater, BorderLayout.CENTER);
 		managerFrame.add(rightTextField, BorderLayout.EAST);
 		managerFrame.add(bottomPanel,BorderLayout.SOUTH);
 		managerFrame.pack();

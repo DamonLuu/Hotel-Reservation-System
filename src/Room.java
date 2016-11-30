@@ -192,14 +192,14 @@ public class Room
 		
 		ReservationManager rm = new ReservationManager();
 		
-		ArrayList<Integer> availableRooms = rm.findRoom("11/27/2016", "12/02/2016", "Luxurious");
+		//ArrayList<Integer> availableRooms = rm.findRoom("11/27/2016", "12/02/2016", "Luxurious");
 		
-		System.out.println("Available Luxurious rooms in date range 11/27/2016-12/02/2016");
+		//System.out.println("Available Luxurious rooms in date range 11/27/2016-12/02/2016");
 		
-		for(Integer RoomNumber: availableRooms)
-		{
-			System.out.println("Room #"+RoomNumber);
-		}
+		//for(Integer RoomNumber: availableRooms)
+		//{
+		//	System.out.println("Room #"+RoomNumber);
+		//}
 
 	}
 

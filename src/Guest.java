@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class Guest{
@@ -25,5 +26,25 @@ public class Guest{
 	public void cancelReservaiton()
 	{
 		
+	}
+	//Context
+	public String formatSimpleReceipt(ReceiptFormatter formatter,ArrayList<Reservation> res)
+	{
+		String receipt = formatter.formatHeader();
+		for(Reservation r : res)
+		{
+			receipt += formatter.formatRoom(r.getRoom());
+		}
+		return receipt + formatter.formatTransaction();
+	}
+	//Context
+	public String formatComprehensiveReceipt(ReceiptFormatter formatter)
+	{
+		String receipt = formatter.formatHeader();
+		for(Reservation r : a.getReservations())
+		{
+			receipt += formatter.formatRoom(r.getRoom());
+		}
+		return receipt + formatter.formatTransaction();
 	}
 }

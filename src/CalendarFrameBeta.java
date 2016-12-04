@@ -212,7 +212,8 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		String textToDisplay = "Today's Events: \n";
 		
 		//String temp = model.dailyEvents(todayDate);
-		dayViewArea.setText("This day's available rooms");
+		dayViewArea.setText(model.getSelectedDayRooms());
+		
 		//dayViewArea.setText(currentEV.dailyEvents(currentEV.getSelectedDate()));
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -266,7 +267,7 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		this.setTitle("Calendar System: Main Window");
 		
-		this.setSize(1000, 350);
+		this.setSize(1000, 500);
 		
 		this.add(leftPanel);
 		this.add(rightPanel);
@@ -317,6 +318,10 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		
 		CalendarTopLabel.setText(Months[m]+" "+model.getSelectedDate().get(GregorianCalendar.YEAR));
 		
+		
+		
+		
+		dayViewArea.setText(model.getSelectedDayRooms());
 		//dayViewArea.setText(model.dailyEvents(model.getSelectedDate()));
 		
 	}

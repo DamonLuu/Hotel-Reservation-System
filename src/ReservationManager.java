@@ -11,7 +11,7 @@ import javax.swing.event.ChangeListener;
 public class ReservationManager 
 {
 	//Data Model (Subject) for MVC
-	private Room[] luxRooms = new Room[11];
+	private Room[] luxRooms = new Room[10];
 	private Room[] econRooms = new Room[10];
 	private AccountManager am = new AccountManager();
 	private GregorianCalendar selectedDate;
@@ -29,17 +29,62 @@ public class ReservationManager
 	}
 	
 	
-	
+	/**
+	 * Get a printout of the room availabilities of the selected day for manager month view
+	 * @return String listing the room availabilities for a day
+	 */
+	public String getSelectedDayRooms(){
+		
+		String dateString = Room.GregCalToKey(selectedDate);
+		
+		String printout ="";
+		
+		printout = printout+"Room availabilities for ";
+		
+		printout = printout + (selectedDate.get(Calendar.MONTH)+1)+"/"+selectedDate.get(Calendar.DAY_OF_MONTH)+"/"+selectedDate.get(Calendar.YEAR)+":\n\n";
+		
+		printout += "Luxurious Rooms: \n";
+		
+		for(int i=0;i<luxRooms.length;i++)
+		{
+			printout = printout +"     Room #" + luxRooms[i].getRoomNumber()+": ";
+			
+			if(luxRooms[i].getAvailability().containsKey(dateString)){
+				printout += "Reserved\n";
+			}
+			else{
+				printout += "Available\n";
+			}
+		}
+		
+		printout += "\nEconomy Rooms: \n";
+		
+		for(int i=0;i<econRooms.length;i++)
+		{
+			printout = printout +"     Room #" + econRooms[i].getRoomNumber()+": ";
+			
+			if(econRooms[i].getAvailability().containsKey(dateString)){
+				printout += "Reserved\n";
+			}
+			else{
+				printout += "Available\n";
+			}
+		}
+		
+		
+		return printout;
+	}
+
 	/**
 	 * Constructor initializes the Room objects in the arrays
 	 */
 	public ReservationManager() 
 	{
 		for(int i=0;i<luxRooms.length;i++)
-		{luxRooms[i] = new Room("Economic");}
+		{luxRooms[i] = new Room("Economic",i);}
 		
 		for(int i=0;i<econRooms.length;i++)
-		{econRooms[i] = new Room("Luxurious");}
+		{econRooms[i] = new Room("Luxurious",i);}
 		
 		selectedDate = new GregorianCalendar();
 		

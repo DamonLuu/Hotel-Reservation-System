@@ -200,6 +200,8 @@ public class Room
 		//{
 		//	System.out.println("Room #"+RoomNumber);
 		//}
+		
+		//System.out.println(rm.getDayView("20161203"));
 
 	}
 

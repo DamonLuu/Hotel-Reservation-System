@@ -2,11 +2,31 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+/**
+ * This is the Data Model
+ */
 public class ReservationManager 
 {
+	//Data Model (Subject) for MVC
 	private Room[] luxRooms = new Room[11];
 	private Room[] econRooms = new Room[10];
+	private AccountManager am = new AccountManager();
+	private GregorianCalendar selectedDate;
 	
+	//Arraylist of ChangeLister for MVC
+	private ArrayList<ChangeListener> cListeners;
+	
+	/**
+	 * Accessor method
+	 * @return
+	 */
+	public AccountManager getAccountManager()
+	{
+		return am;
+	}
 	
 	
 	
@@ -21,6 +41,9 @@ public class ReservationManager
 		for(int i=0;i<econRooms.length;i++)
 		{econRooms[i] = new Room("Luxurious");}
 		
+		selectedDate = new GregorianCalendar();
+		
+		cListeners = new ArrayList<ChangeListener>();
 	}
 	
 	/**
@@ -93,6 +116,45 @@ public class ReservationManager
 	{
 		
 	}
+	
+	 /**
+     * Select a different date. This is one of the update method of Data Model.
+     * It is a mutator that changes the data, and then notifies all views in cListeners.
+     * @param d is the date selected.
+     */
+    public void selectDate(GregorianCalendar d)
+    {
+    	selectedDate = d;
+    	//System.out.println("selectDate");
+    	
+    	for(ChangeListener l: cListeners)
+    	{
+    		l.stateChanged(new ChangeEvent(this));
+    		//System.out.println("listeners notified");
+    	}
+    		
+    }
+    
+    /**
+     * Accessor method to check value of selectedDate
+     * The selectedDate helps the View determine which day's event to show in day view on the right panel.
+     * This is one of the getData() methods of this data model.
+     * @return return the instance variable selectedDate of EventsManager object.
+     */
+    public GregorianCalendar getSelectedDate()
+    {
+    	return selectedDate;
+    }
+
+    /**
+     * Attach a listener to the DataModel. All listeners are notified when data is updated.
+     * This is the "Attach" method of the MVC model. 
+     * @param c the listener representing the "view" portion of MVC.
+     */
+    public void attach(ChangeListener c)
+    {
+    	cListeners.add(c);
+    }
 	
 	
 	

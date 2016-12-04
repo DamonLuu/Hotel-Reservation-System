@@ -11,8 +11,9 @@ import javax.swing.event.ChangeListener;
 public class ReservationManager 
 {
 	//Data Model (Subject) for MVC
-	private Room[] luxRooms = new Room[10];
-	private Room[] econRooms = new Room[10];
+	//private Room[] luxRooms = new Room[10];
+	//private Room[] econRooms = new Room[10];
+	private Room[] allRooms = new Room[20]; //econ rooms #0-9; lux rooms #19-20
 	private AccountManager am = new AccountManager();
 	private GregorianCalendar selectedDate;
 	
@@ -28,6 +29,14 @@ public class ReservationManager
 		return am;
 	}
 	
+	/**
+	 * Accessor method
+	 * @return room corresponding to the room number
+	 */
+	public Room getRoom(int RoomNumber){
+		
+		return allRooms[RoomNumber];
+	}
 	
 	/**
 	 * Get a printout of the room availabilities of the selected day for manager month view
@@ -43,13 +52,13 @@ public class ReservationManager
 		
 		printout = printout + (selectedDate.get(Calendar.MONTH)+1)+"/"+selectedDate.get(Calendar.DAY_OF_MONTH)+"/"+selectedDate.get(Calendar.YEAR)+":\n\n";
 		
-		printout += "Luxurious Rooms: \n";
+		printout += "Economy Rooms: \n";
 		
-		for(int i=0;i<luxRooms.length;i++)
+		for(int i=0;i<10;i++)
 		{
-			printout = printout +"     Room #" + luxRooms[i].getRoomNumber()+": ";
+			printout = printout +"     Room #" + allRooms[i].getRoomNumber()+": ";
 			
-			if(luxRooms[i].getAvailability().containsKey(dateString)){
+			if(allRooms[i].getAvailability().containsKey(dateString)){
 				printout += "Reserved\n";
 			}
 			else{
@@ -57,13 +66,13 @@ public class ReservationManager
 			}
 		}
 		
-		printout += "\nEconomy Rooms: \n";
+		printout += "\nLuxury Rooms: \n";
 		
-		for(int i=0;i<econRooms.length;i++)
+		for(int i=10;i<20;i++)
 		{
-			printout = printout +"     Room #" + econRooms[i].getRoomNumber()+": ";
+			printout = printout +"     Room #" + allRooms[i].getRoomNumber()+": ";
 			
-			if(econRooms[i].getAvailability().containsKey(dateString)){
+			if(allRooms[i].getAvailability().containsKey(dateString)){
 				printout += "Reserved\n";
 			}
 			else{
@@ -80,11 +89,17 @@ public class ReservationManager
 	 */
 	public ReservationManager() 
 	{
-		for(int i=0;i<luxRooms.length;i++)
-		{luxRooms[i] = new Room("Economic",i);}
+//		for(int i=0;i<luxRooms.length;i++)
+//		{luxRooms[i] = new Room("Economic",i);}
+//		
+//		for(int i=0;i<econRooms.length;i++)
+//		{econRooms[i] = new Room("Luxurious",i);}
 		
-		for(int i=0;i<econRooms.length;i++)
-		{econRooms[i] = new Room("Luxurious",i);}
+		for(int i=0;i<10;i++)
+		{allRooms[i] = new Room("Economic",i);}
+		
+		for(int i=10;i<20;i++)
+		{allRooms[i] = new Room("Luxurious",i);}
 		
 		selectedDate = new GregorianCalendar();
 		
@@ -110,29 +125,36 @@ public class ReservationManager
 		
 		roomType = roomType.toLowerCase();
 		
+		int roomIdxS;
+		int roomIdxE;
+		
 		if(roomType.startsWith("l"))
 		{
-			rooms2search = luxRooms;
+			//rooms2search = luxRooms;
+			roomIdxS=0;
+			roomIdxE=9;
 		}
 		else
 		{
-			rooms2search = econRooms;
+			//rooms2search = econRooms;
+			roomIdxS=10;
+			roomIdxE=19;
 		}
-			
+		
 		//ArrayList<Integer> openRooms = new ArrayList<>();
 		
 		
 		String stringOfAvailRooms="";
 		
 		outsideLoop:
-		for(int i=0;i<rooms2search.length;i++)
+		for(int i=roomIdxS;i<=roomIdxE;i++)
 		{
 			GregorianCalendar tempDate = (GregorianCalendar)startDate.clone();
 			GregorianCalendar stopDate = (GregorianCalendar)endDate.clone();
 			stopDate.add(Calendar.DAY_OF_MONTH, 1);
 			while(!tempDate.before(stopDate))
 			{
-				if(rooms2search[i].getAvailability().containsKey(Room.GregCalToKey(tempDate)))
+				if(allRooms[i].getAvailability().containsKey(Room.GregCalToKey(tempDate)))
 				{
 					continue outsideLoop;
 				}

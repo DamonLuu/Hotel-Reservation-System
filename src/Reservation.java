@@ -17,7 +17,7 @@ public class Reservation
 		//room.getAvailability().put(startDate, this);
 		
 	}
-	
+		
 	/**
 	 * Accessor method to get the start (check-in) date for the reservation
 	 * @return GregorianCalendar object that is clone of startDate instance variable
@@ -35,6 +35,8 @@ public class Reservation
 	{
 		return (GregorianCalendar) endDate.clone();
 	}
+	
+	
 	/**
 	 * Accessor method to get the room
 	 * @return room of reservation

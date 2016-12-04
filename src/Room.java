@@ -10,7 +10,7 @@ public class Room
 	private int cost;
 	private int roomNumber;
 	private String roomType;
-	private static Map<String, Reservation> reservationsMade;
+	private Map<String, Reservation> reservationsMade;
 	
 	/**
 	 * Constructor: creates a room object.
@@ -145,12 +145,36 @@ public class Room
 			monthStr = ""+monthInt;
 		}
 		
-		dayStr = ""+someDate.get(GregorianCalendar.DAY_OF_MONTH);
+		int dayInt = someDate.get(GregorianCalendar.DAY_OF_MONTH);
 		
+		if(dayInt<10)
+		{
+			dayStr ="0"+dayInt;
+		}
+		else
+		{
+			dayStr = ""+dayInt;
+		}
+			
 		String result = yearStr+monthStr+dayStr;
 		
 		return result;
 	}
+	
+	/**
+	 * Takes the date string in the format entered by user in reservation frame and returns GregCal obj
+	 * @param DateEntered in the format "MM/DD/YYYY"
+	 * @return GregorianCalendar object corresponding to the date entered.
+	 */
+	public static GregorianCalendar mmddyyyToGregCal(String DateEntered){
+		
+		String[] temp = DateEntered.split("/");
+		
+		GregorianCalendar result = new GregorianCalendar(Integer.parseInt(temp[2]),Integer.parseInt(temp[0]),Integer.parseInt(temp[1]));
+		
+		return result;
+	}
+	
 	
 	/**
 	 * main method for testing Room class only. Does not affect compilation of MainTester.
@@ -158,39 +182,44 @@ public class Room
 	 */
 	public static void main(String[] args)
 	{
-		Room room1 = new Room("economy");
+		
+		ReservationManager rm = new ReservationManager();
+		
+		CalendarFrameBeta calframe= new CalendarFrameBeta(rm);
+		
+		rm.attach(calframe);
 		
 		Account a1 = new Account("1234","John","Smith");
 		
 		GregorianCalendar checkInDate = new GregorianCalendar(2016,10,15); //month 10 means November
 		GregorianCalendar checkOutDate = new GregorianCalendar(2016,10,20); 
 		
-		Reservation rObj1 = new Reservation(checkInDate,checkOutDate,room1,a1);
+		Reservation rObj1 = new Reservation(checkInDate,checkOutDate,rm.getRoom(3),a1);
 		
 		System.out.println("Make reservation with check-in 11/15, check-out 11/20");
-		room1.reserveRoom(rObj1);
+		rm.getRoom(3).reserveRoom(rObj1);
 		
 
 		System.out.println("room available on 2016/11/14?");
-		System.out.println(room1.checkAvailability("20161114"));
+		System.out.println(rm.getRoom(3).checkAvailability("20161114"));
 		
 		System.out.println("room available on 2016/11/15?");
-		System.out.println(room1.checkAvailability("20161115"));		
+		System.out.println(rm.getRoom(3).checkAvailability("20161115"));		
 		
 		System.out.println("room available on 2016/11/18?");
-		System.out.println(room1.checkAvailability("20161118"));
+		System.out.println(rm.getRoom(3).checkAvailability("20161118"));
 		
 		System.out.println("room available on 2016/11/20?");
-		System.out.println(room1.checkAvailability("20161120"));
+		System.out.println(rm.getRoom(3).checkAvailability("20161120"));
 		
 		System.out.println("room available on 2016/11/22?");
-		System.out.println(room1.checkAvailability("20161122"));
+		System.out.println(rm.getRoom(3).checkAvailability("20161122"));
 		
-		Room roomX = new Room("luxurious",101);
-		System.out.println("room number:"+ roomX.getRoomNumber());
+		//Room roomX = new Room("luxurious",101);
+		//System.out.println("room number:"+ roomX.getRoomNumber());
 		
 		
-		ReservationManager rm = new ReservationManager();
+
 		
 		//ArrayList<Integer> availableRooms = rm.findRoom("11/27/2016", "12/02/2016", "Luxurious");
 		
@@ -200,6 +229,8 @@ public class Room
 		//{
 		//	System.out.println("Room #"+RoomNumber);
 		//}
+		
+		//System.out.println(rm.getDayView("20161203"));
 
 	}
 

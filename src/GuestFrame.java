@@ -55,7 +55,7 @@ public class GuestFrame extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				GuestSignUpFrame frame = new GuestSignUpFrame();
+				GuestSignUpFrame frame = new GuestSignUpFrame(model);
 			}
 		});
 

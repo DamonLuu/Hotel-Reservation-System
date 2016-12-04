@@ -22,4 +22,16 @@ public class AccountManager
 		Account e = new Account(loginID,firstName,lastName);
 		acc.add(e);
 	}
+	
+	public boolean checkValidAccount(Account a, String firstName, String lastName)
+	{
+		if (getAccount(a.getLoginID()) != null)
+		{
+			if (a.getFirstName().equals(firstName) && a.getLastName().equals(lastName))
+			{
+				return true;
+			}
+		}	
+		return false;
+	}
 }

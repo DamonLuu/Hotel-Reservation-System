@@ -43,17 +43,17 @@ public class GuestSignUpFrame extends JFrame
 		JLabel loginLabel = new JLabel("      Login ID:");
 		JTextField loginTextfield = new JTextField("123", 8);
 		
-		JLabel guestNameLabel = new JLabel("      First Name:");
-		JTextField nameField = new JTextField("John", 10);
+		JLabel firstNameLabel = new JLabel("      First Name:");
+		JTextField firstNameField = new JTextField("John", 10);
 		
-		JLabel guestLastLabel = new JLabel("      Last Name:");
+		JLabel lastNameLabel = new JLabel("      Last Name:");
 		JTextField lastNameField = new JTextField("Smith", 15);
 		
 		signUpPanel.add(loginLabel);
 		signUpPanel.add(loginTextfield);
-		signUpPanel.add(guestNameLabel);		
-		signUpPanel.add(nameField);
-		signUpPanel.add(guestLastLabel);
+		signUpPanel.add(firstNameLabel);		
+		signUpPanel.add(firstNameField);
+		signUpPanel.add(lastNameLabel);
 		signUpPanel.add(lastNameField);
 		
 		JPanel buttonPanel = new JPanel();
@@ -62,15 +62,20 @@ public class GuestSignUpFrame extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{	String loginID = loginTextfield.getText();
-				String guestName = nameField.getText();
+				String firstName = firstNameField.getText();
 				String lastName = lastNameField.getText();
 				
-				if(!loginID.isEmpty() && !guestName.isEmpty() && !lastName.isEmpty())
+				if(!loginID.isEmpty() && !lastName.isEmpty() && !lastName.isEmpty())
 				{
-					//Account guest = new Account(loginID, guestName, lastName);
-					model.getAccountManager().addAccount(loginID, guestName, lastName);
-					//System.out.println(guest.toString());
+					if(model.getAccountManager().getAccount(loginID) == null)
+					{
+					model.getAccountManager().addAccount(loginID, firstName, lastName);
 					dispose();
+					}
+					else
+					{
+						idAlreadyTakenFrame();
+					}
 				}
 				else
 				{
@@ -108,6 +113,37 @@ public class GuestSignUpFrame extends JFrame
 		emptyErrorFrame.add(closeButton, BorderLayout.SOUTH);
 		emptyErrorFrame.pack();
 		emptyErrorFrame.setVisible(true);
+	}
+	
+	public void idAlreadyTakenFrame()
+	{
+		JFrame incorrectLoginFrame = new JFrame("Login ID already used");
+		incorrectLoginFrame.setLayout(new BorderLayout());
+		
+		JPanel errorPanel = new JPanel();
+		errorPanel.setPreferredSize(new Dimension(300, 100));
+		
+		JLabel errorText = new JLabel("The Login ID you have chosen is in use.", SwingConstants.CENTER);
+		JLabel errorText2 = new JLabel("Please use a different login ID.", SwingConstants.CENTER);
+		
+		errorPanel.add(errorText);
+		errorPanel.add(errorText2);
+		
+		errorText.setPreferredSize(new Dimension(300,50));
+		JButton closeButton = new JButton("Close");
+		closeButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				incorrectLoginFrame.dispose();
+			}
+		});
+
+		incorrectLoginFrame.add(errorPanel, BorderLayout.NORTH);
+		incorrectLoginFrame.add(closeButton, BorderLayout.SOUTH);
+		incorrectLoginFrame.pack();
+		incorrectLoginFrame.setVisible(true);
+		
 	}
 	
 }

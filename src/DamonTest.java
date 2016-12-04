@@ -5,14 +5,16 @@ public class DamonTest {
 		
 		
 		ReservationManager rm = new ReservationManager();
-		//new WelcomeFrame(rm);
-		//new GuestLoginFrame().makeReservationFrame();
+		rm.getAccountManager().addAccount("123", "John", "Smith");
+		new WelcomeFrame(rm);
+		
+		//new GuestLoginFrame(rm).makeReservationFrame();
 		//new ManagerFrame();
 		//test githubbot
 		
-		CalendarFrameBeta calframe= new CalendarFrameBeta(rm);
+		//CalendarFrameBeta calframe= new CalendarFrameBeta(rm);
 		
-		rm.attach(calframe);
+		//rm.attach(calframe);
 		
 	}
 

@@ -21,8 +21,12 @@ import javax.swing.event.ChangeListener;
 
 public class ManagerFrame
 {
-	public ManagerFrame() 
+	private ReservationManager model;
+	
+	public ManagerFrame(ReservationManager model) 
 	{
+		this.model = model;
+		
 		JFrame managerFrame = new JFrame();
 		managerFrame.setLayout(new BorderLayout());
 		
@@ -31,9 +35,21 @@ public class ManagerFrame
 		topLabel.setPreferredSize(new Dimension(350, 60));
 				
 		JPanel centerPanel = new JPanel();
-		JTextField changeLater = new JTextField("Someone put a calendar here");
-		changeLater.setPreferredSize(new Dimension(350,250));
-		centerPanel.add(changeLater);
+		//JTextField changeLater = new JTextField("Someone put a calendar here");
+		//changeLater.setPreferredSize(new Dimension(350,250));
+		JButton openMonthViewButton = new JButton("Month View");
+		
+		openMonthViewButton.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){
+				
+			CalendarFrameBeta calframe= new CalendarFrameBeta(model);
+			model.attach(calframe);			
+			}
+			
+		});
+		
+		centerPanel.add(openMonthViewButton);
 		
 		JTextField rightTextField= new JTextField("list all available rooms with selected date here");
 		rightTextField.setPreferredSize(new Dimension(300,150));
@@ -47,7 +63,7 @@ public class ManagerFrame
 	
 		
 		managerFrame.add(topLabel, BorderLayout.NORTH);
-		managerFrame.add(changeLater, BorderLayout.CENTER);
+		managerFrame.add(centerPanel, BorderLayout.CENTER);
 		managerFrame.add(rightTextField, BorderLayout.EAST);
 		managerFrame.add(bottomPanel,BorderLayout.SOUTH);
 		managerFrame.pack();

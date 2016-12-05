@@ -54,7 +54,8 @@ public class WelcomeFrame extends JFrame
 
 			public void actionPerformed(ActionEvent e) 
 			{
-				new ManagerFrame();
+				new CalendarFrameBeta(model);
+				new RoomViewFrame(model);
 			}
 		});
 

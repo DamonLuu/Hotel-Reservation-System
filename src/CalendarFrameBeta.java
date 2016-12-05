@@ -218,39 +218,30 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Create and Quit Buttons
-		
-/*		JPanel buttonPanel2 = new JPanel();
-		JButton createButton = new JButton("CREATE");
-		createButton.addActionListener(new ActionListener(){
+				
+		JPanel buttonPanel2 = new JPanel();
+		JButton loadButton = new JButton("Load Existing Reservations");
+		loadButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				CreateFrame newCreateFrame = new CreateFrame(model);	
+				System.out.println("Load Existing Reservations");	
 			}
 		});
 		
 		
-		JButton quitButton = new JButton("QUIT");
-		quitButton.addActionListener(new ActionListener(){
+		JButton saveButton = new JButton("Save Current Reservations");
+		saveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				try {
-					ev.saveDataToFile("events.txt");
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				dispose();
-				System.exit(0); //terminate the program.
+				System.out.println("Save Current Reservations");
 				
 			}
-		});*/
+		});
 		
-/*		
-		
+	
 		buttonPanel2.setLayout(new FlowLayout());
-		buttonPanel2.add(createButton);
-		buttonPanel2.add(quitButton);*/
+		buttonPanel2.add(loadButton);
+		buttonPanel2.add(saveButton);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Right Panel that wil contain the Day Panel, create button, and quit button. It will be displayed
@@ -259,15 +250,15 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BorderLayout());
 		
-		//rightPanel.add(buttonPanel2, BorderLayout.SOUTH);
+		rightPanel.add(buttonPanel2, BorderLayout.SOUTH);
 		
 		rightPanel.add(dayViewArea,BorderLayout.CENTER);
 		
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		this.setTitle("Calendar System: Main Window");
+		this.setTitle("Manager Month View");
 		
-		this.setSize(1000, 500);
+		this.setSize(1000, 550);
 		
 		this.add(leftPanel);
 		this.add(rightPanel);

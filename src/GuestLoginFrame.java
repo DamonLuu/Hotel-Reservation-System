@@ -343,7 +343,7 @@ public class GuestLoginFrame extends JFrame
 
 		JLabel topLabel = new JLabel("Listed below is all your reservations");
 
-		JTextArea changeLater = new JTextArea("Change this later to show all reservations");
+		JTextArea changeLater = new JTextArea(model.getAccount().reservationToString());
 		changeLater.setPreferredSize(new Dimension(275,250));
 
 		JButton cancelButton = new JButton("Cancel Selected Reservation");
@@ -352,7 +352,7 @@ public class GuestLoginFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-
+				
 			}
 		});
 

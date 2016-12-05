@@ -51,4 +51,9 @@ public class Reservation
 	{
 		//Room checker = new Room(roomType)
 	}
+	
+	public Account getAccount()
+	{
+		return account;
+	}
 }

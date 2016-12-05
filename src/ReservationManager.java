@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
+import java.util.Map;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -179,9 +179,16 @@ public class ReservationManager implements Serializable
 		return stringOfAvailRooms;
 	}
 
-	public void cancelReservation()
+	public void cancelReservation(Room room)
 	{
-
+		for (Map.Entry<String, Reservation> entry : room.getAvailability().entrySet())
+		{
+			if (entry.getValue().getAccount().equals(currentAccount))
+			{
+				room.getAvailability().remove(entry);
+			}
+		}
+		update();
 	}
 
 	public void makeReservation(String checkIn, String checkOut, String roomNumber)
@@ -197,11 +204,7 @@ public class ReservationManager implements Serializable
 				", check-out " + gregorianToString(checkOutDate));
 		selectedRoom.reserveRoom(rObj1);
 		System.out.println(selectedRoom.checkAvailability(GregCalToKeyTree(checkInDate)));
-		for(ChangeListener l: cListeners)
-		{
-			l.stateChanged(new ChangeEvent(this));
-			System.out.println("listeners notified");
-		}
+		update();
 	}
 
 	public void showAvailability(String checkIn, String checkOut, String roomNumber)
@@ -219,12 +222,17 @@ public class ReservationManager implements Serializable
 		selectedDate = d;
 		//System.out.println("selectDate");
 
+		update();
+
+	}
+	
+	public void update()
+	{
 		for(ChangeListener l: cListeners)
 		{
 			l.stateChanged(new ChangeEvent(this));
-			//System.out.println("listeners notified");
+			System.out.println("listeners notified");
 		}
-
 	}
 
 	/**

@@ -56,19 +56,28 @@ public class HotelManager
 		return rooms[roomNumber];
 	}
 
-	public void signIn()
+	public void signIn() //prob not needed
 	{
 		
 	}
 
-	public void quit()
+	public void quit() //prob not needed, just save and close frames?
 	{
-
+		saveReservation();
 	}
 
 	public void saveReservation()
 	{
-
+		try{
+	        FileOutputStream fileOut = new FileOutputStream("events.ser");
+	        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	        //out.writeObject(test);
+	        out.writeObject(rm);
+	        out.close();
+	        fileOut.close();
+	    }catch(IOException i) {
+	    	i.printStackTrace();
+	    }
 	}
 
 	public void viewInformation()
@@ -78,7 +87,26 @@ public class HotelManager
 
 	public void loadReservation()
 	{
-
+		File file = new File("events.ser");
+		if(!file.exists())
+			return;
+		try {
+	         FileInputStream fileIn = new FileInputStream("events.ser");
+	         ObjectInputStream in = new ObjectInputStream(fileIn);
+	         //test = (ArrayList<Object>) in.readObject();
+	         rm = (ReservationManager) in.readObject();
+	         in.close();
+	         fileIn.close();
+	      }catch(IOException i) {
+	         i.printStackTrace();
+	         return;
+	      }catch(ClassNotFoundException c) {
+		         System.out.println("Classes not found");
+		         c.printStackTrace();
+		         return;
+		  }
+		//am = (AccountManager) test.get(0);
+		//rm = (ReservationManager) test.get(1);
 	}
 	
 	public void printEmptyRooms()

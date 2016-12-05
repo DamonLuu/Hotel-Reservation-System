@@ -10,7 +10,7 @@ public class Room
 	private int cost;
 	private int roomNumber;
 	private String roomType;
-	private Map<String, Reservation> reservationsMade;
+	private TreeMap<String, Reservation> reservationsMade;
 	
 	/**
 	 * Constructor: creates a room object.
@@ -118,7 +118,7 @@ public class Room
 	 * Accessor method
 	 * @return get the treeMap containing reservations made for the room.
 	 */
-	public Map<String, Reservation> getAvailability()
+	public TreeMap<String, Reservation> getAvailability()
 	{
 		return reservationsMade;
 	}

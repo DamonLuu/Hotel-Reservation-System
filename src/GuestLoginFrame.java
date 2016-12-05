@@ -9,9 +9,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -156,11 +158,10 @@ public class GuestLoginFrame extends JFrame
 		JLabel checkInLabel = new JLabel("Check In Date:");
 
 		GregorianCalendar today = new GregorianCalendar();
-		today.add(Calendar.DATE, 1);
 		String niceTodayDate = model.gregorianToString(today);
 
 		GregorianCalendar nextWeek = new GregorianCalendar();
-		nextWeek.add(Calendar.DAY_OF_MONTH, 8);
+		nextWeek.add(Calendar.DAY_OF_MONTH, 7);
 
 		String niceNextWeekDate = model.gregorianToString(nextWeek);
 
@@ -338,10 +339,22 @@ public class GuestLoginFrame extends JFrame
 	{
 		JFrame cancelReservationFrame = new JFrame("View/Cancel Reservation");
 		cancelReservationFrame.setLayout(new BorderLayout());
+		cancelReservationFrame.setPreferredSize(new Dimension(550, 600));
 
 		JLabel topLabel = new JLabel("Listed below is all your reservations");
 		System.out.println("at cancel panel");
 		JTextArea changeLater = new JTextArea(model.getAccount().reservationToString());
+		
+		DefaultListModel<Reservation> test = new DefaultListModel<>();
+		JList<Reservation> jList = new JList<>();
+		
+		for(Reservation r : model.getAccount().getReservations())
+		{
+			test.addElement(r);
+		}
+		jList.setModel(test);
+		
+		
 		changeLater.setPreferredSize(new Dimension(275,250));
 
 		JButton cancelButton = new JButton("Cancel Selected Reservation");
@@ -350,12 +363,19 @@ public class GuestLoginFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				Reservation selected = jList.getSelectedValue();
+				if (selected != null)
+				{
+					int i = jList.getSelectedIndex();
+					test.remove(i);
+					Room selectedRoom = selected.getRoom();
+					model.cancelReservation(selectedRoom, selected);
+				}
 			}
 		});
 
 		cancelReservationFrame.add(topLabel, BorderLayout.NORTH);
-		cancelReservationFrame.add(changeLater, BorderLayout.CENTER);
+		cancelReservationFrame.add(jList, BorderLayout.CENTER);
 		cancelReservationFrame.add(cancelButton, BorderLayout.SOUTH);
 
 		cancelReservationFrame.pack();

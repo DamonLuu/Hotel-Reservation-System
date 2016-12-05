@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
+import java.util.TreeMap;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -105,10 +107,10 @@ public class ReservationManager implements Serializable
 		//		{econRooms[i] = new Room("Luxurious",i);}
 
 		for(int i=0;i<10;i++)
-		{allRooms[i] = new Room("Economic",i);}
+		{allRooms[i] = new Room("Economy",i);}
 
 		for(int i=10;i<20;i++)
-		{allRooms[i] = new Room("Luxurious",i);}
+		{allRooms[i] = new Room("Luxury",i);}
 
 		selectedDate = new GregorianCalendar();
 
@@ -179,13 +181,26 @@ public class ReservationManager implements Serializable
 		return stringOfAvailRooms;
 	}
 
-	public void cancelReservation(Room room)
+	public void cancelReservation(Room room, Reservation reserv)
 	{
-		for (Map.Entry<String, Reservation> entry : room.getAvailability().entrySet())
+//		for (Map.Entry<String, Reservation> entry : room.getAvailability().entrySet())
+//		{
+//			if (entry.getValue().getAccount() == currentAccount)
+//			{
+//				room.getAvailability().remove(entry.getKey());
+//			}
+//		}
+		//Map<String, Reservation> map = room.getAvailability();
+		TreeMap<String, Reservation> treeMap = allRooms[7].getAvailability();
+		//treeMap.clear();
+		
+		for(String key : treeMap.keySet())
 		{
-			if (entry.getValue().getAccount().equals(currentAccount))
+			if(treeMap.get(key) == reserv)
 			{
-				room.getAvailability().remove(entry);
+				//treeMap.remove(key);
+				treeMap.remove(key, reserv);
+				break;
 			}
 		}
 		update();
@@ -260,6 +275,7 @@ public class ReservationManager implements Serializable
 	public boolean dateBeforeCheck(String checkIn, String checkOut) throws ParseException
 	{
 		GregorianCalendar today = new GregorianCalendar();
+		today.setTimeInMillis(0);
 		GregorianCalendar checkInDate = mmddyyyToGregCal(checkIn);
 		GregorianCalendar checkOutDate = mmddyyyToGregCal(checkOut);
 

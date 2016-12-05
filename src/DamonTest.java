@@ -8,7 +8,7 @@ public class DamonTest {
 		rm.getAccountManager().addAccount("123", "John", "Smith");
 		new WelcomeFrame(rm);
 		
-		//GuestLoginFrame(rm).makeReservationFrame();
+		//new GuestLoginFrame(rm).makeReservationFrame();
 		//new ManagerFrame();
 		//test githubbot
 		

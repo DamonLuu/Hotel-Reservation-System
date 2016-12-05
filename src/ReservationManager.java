@@ -20,6 +20,10 @@ public class ReservationManager
 	private Room[] allRooms = new Room[20]; //econ rooms #0-9; lux rooms #19-20
 	private AccountManager am = new AccountManager();
 	private GregorianCalendar selectedDate;
+	private Account currentAccount;
+	
+	private ArrayList<Reservation> reservations = new ArrayList<>();
+	
 	
 	//Arraylist of ChangeLister for MVC
 	private ArrayList<ChangeListener> cListeners;
@@ -119,13 +123,14 @@ public class ReservationManager
 	 */
 	public String findRoom(String checkIn, String checkOut, String roomType)
 	{
-		Room[] rooms2search;
+		//Room[] rooms2search;
 		
 		String[] startInput = checkIn.split("/");
 		String[] endInput = checkOut.split("/");
-		
-		GregorianCalendar startDate = new GregorianCalendar(Integer.parseInt(startInput[2]),Integer.parseInt(startInput[0]),Integer.parseInt(startInput[1]));
-		GregorianCalendar endDate = new GregorianCalendar(Integer.parseInt(endInput[2]),Integer.parseInt(endInput[0]),Integer.parseInt(endInput[1]));
+		System.out.println(Integer.parseInt(startInput[0]) -1);
+			
+		GregorianCalendar startDate = new GregorianCalendar(Integer.parseInt(startInput[2]),Integer.parseInt(startInput[0]) -1,Integer.parseInt(startInput[1]));
+		GregorianCalendar endDate = new GregorianCalendar(Integer.parseInt(endInput[2]),Integer.parseInt(endInput[0]) -1,Integer.parseInt(endInput[1]));
 		
 		roomType = roomType.toLowerCase();
 		
@@ -156,10 +161,14 @@ public class ReservationManager
 			GregorianCalendar tempDate = (GregorianCalendar)startDate.clone();
 			GregorianCalendar stopDate = (GregorianCalendar)endDate.clone();
 			stopDate.add(Calendar.DAY_OF_MONTH, 1);
+			System.out.println(tempDate.get((Calendar.MONTH))+1 + "/" + tempDate.get(Calendar.DAY_OF_MONTH) + "/" + tempDate.get(Calendar.YEAR));
+			System.out.println(stopDate.get((Calendar.MONTH))+1 + "/" + stopDate.get(Calendar.DAY_OF_MONTH) + "/" + stopDate.get(Calendar.YEAR));
 			while(!tempDate.before(stopDate))
 			{
+				System.out.println("2");
 				if(allRooms[i].getAvailability().containsKey(Room.GregCalToKey(tempDate)))
 				{
+					System.out.println("Room: " + i + " is Open");
 					continue outsideLoop;
 				}
 				tempDate.add(Calendar.DAY_OF_MONTH,1);
@@ -205,6 +214,23 @@ public class ReservationManager
     	}
     		
     }
+    
+    public void addReservation(Reservation r)
+    {
+    	//selectedDate = d;
+    	//System.out.println("selectDate");
+    	reservations.add(r);
+    	Room selected = allRooms[r.getRoom().getRoomNumber()];
+    	//selected.reserveRoom(rObj);)
+    	
+    	for(ChangeListener l: cListeners)
+    	{
+    		l.stateChanged(new ChangeEvent(this));
+    		//System.out.println("listeners notified");
+    	}
+    		
+    }
+    
     
     /**
      * Accessor method to check value of selectedDate
@@ -260,5 +286,14 @@ public class ReservationManager
 		return checkIn.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") && checkOut.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})");
 	}
 
+	public void setAccount(Account a)
+	{
+		currentAccount = a;
+	}
+	
+	public Account getAccount()
+	{
+		return currentAccount;
+	}
 
 }

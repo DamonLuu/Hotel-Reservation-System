@@ -12,7 +12,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -24,6 +26,7 @@ public class GuestLoginFrame extends JFrame
 
 	private ReservationManager model;
 	private String button;
+	
 
 	public GuestLoginFrame(ReservationManager m)
 	{
@@ -75,6 +78,7 @@ public class GuestLoginFrame extends JFrame
 				if (model.getAccountManager().checkValidAccount(temp, firstName, lastName))
 				{
 					dispose();
+					model.setAccount(temp);
 					GuestReservationOptionFrame();
 				}
 				else
@@ -218,6 +222,7 @@ public class GuestLoginFrame extends JFrame
 							else 
 							{
 								listAllRoomsTextArea.setText(model.findRoom(checkInText.getText(), checkOutText.getText(), "Luxury"));
+								//System.out.println(checkInText.getText());
 							}
 						}
 					}
@@ -231,6 +236,8 @@ public class GuestLoginFrame extends JFrame
 				{
 					incorrectTimeFrame();
 				}
+				button = "Luxury";
+				
 			}
 		});
 
@@ -270,19 +277,9 @@ public class GuestLoginFrame extends JFrame
 				{
 					incorrectTimeFrame();
 				}
+				button = "Economy";
 			}
 		});
-
-
-
-		if (economyButton.isSelected())
-		{
-			button = "Economy";
-		}
-		else if (luxuryButton.isSelected())
-		{
-			button = "Luxury";
-		}
 
 		JPanel buttonPanel = new JPanel();
 		JLabel roomType = new JLabel("Room Type: ");
@@ -300,7 +297,7 @@ public class GuestLoginFrame extends JFrame
 			@Override
 			public void stateChanged(ChangeEvent e) 
 			{
-				final String currentButton = new String(button);
+			//	final String currentButton = new String(button);
 				String allAvailable = model.findRoom(checkInText.getText(), checkOutText.getText(), button);
 				listAllRoomsTextArea.setText(allAvailable);
 			}
@@ -314,7 +311,7 @@ public class GuestLoginFrame extends JFrame
 
 		JPanel roomNumberPanel = new JPanel();
 		JLabel enterRoomLabel = new JLabel("Enter the room number to reserve.");
-		JTextField roomNumberTextArea = new JTextField("Room #");
+		JTextField roomNumberTextArea = new JTextField("Room #", 5);
 		roomNumberPanel.add(enterRoomLabel);
 		roomNumberPanel.add(roomNumberTextArea);
 
@@ -326,17 +323,21 @@ public class GuestLoginFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-
-			}
-		});
-
-		JButton moreButton = new JButton("More Reservations?");
-		moreButton.addActionListener(new ActionListener()
-		{	
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-
+				Room selectedRoom = model.getRoom(Integer.parseInt(roomNumberTextArea.getText()));
+				String[] checkInSplit = checkInText.getText().split("/");
+				String[] checkOutSplit = checkOutText.getText().split("/");
+				
+				GregorianCalendar checkInGreg = new GregorianCalendar(Integer.parseInt(checkInSplit[2]),Integer.parseInt(checkInSplit[0]),Integer.parseInt(checkInSplit[1]));
+				GregorianCalendar checkOutGreg = new GregorianCalendar(Integer.parseInt(checkOutSplit[2]),Integer.parseInt(checkOutSplit[0]),Integer.parseInt(checkOutSplit[1]));
+				
+				Reservation reservation = new Reservation(checkInGreg, checkOutGreg, selectedRoom, model.getAccount());
+				
+				selectedRoom.reserveRoom(reservation);
+				
+				JOptionPane.showMessageDialog(null, "Your Room Has Been Reserved");
+				model.selectDate(new GregorianCalendar());
+				//selected.reserveRoom(rObj);
+				
 			}
 		});
 
@@ -347,11 +348,11 @@ public class GuestLoginFrame extends JFrame
 			public void actionPerformed(ActionEvent e) 
 			{
 				makeReservationFrame.dispose();
+				receiptFrame();
 			}
 		});
 
 		bottomButtonPanel.add(confirmButton);
-		bottomButtonPanel.add(moreButton);
 		bottomButtonPanel.add(doneButton);
 
 		southPanel.add(roomNumberPanel, BorderLayout.NORTH);
@@ -474,5 +475,26 @@ public class GuestLoginFrame extends JFrame
 		incorrectDateFrame.add(closeButton, BorderLayout.SOUTH);
 		incorrectDateFrame.pack();
 		incorrectDateFrame.setVisible(true);	
+	}
+	
+	public void receiptFrame()
+	{
+		JFrame receiptFrame = new JFrame("Receipt");
+		receiptFrame.setLayout(new BorderLayout());
+		JTextArea receiptInfo = new JTextArea("put receipt stuff here");
+		JScrollPane speakerScroll = new JScrollPane(receiptInfo, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		receiptInfo.setPreferredSize(new Dimension(300,600));
+		JButton closeButton = new JButton("Close");
+		closeButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				receiptFrame.dispose();
+			}
+		});
+		receiptFrame.add(speakerScroll, BorderLayout.NORTH);
+		receiptFrame.add(closeButton, BorderLayout.SOUTH);
+		receiptFrame.pack();
+		receiptFrame.setVisible(true);	
 	}
 }

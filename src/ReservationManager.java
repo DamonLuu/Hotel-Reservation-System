@@ -204,6 +204,7 @@ public class ReservationManager implements Serializable
 				", check-out " + gregorianToString(checkOutDate));
 		selectedRoom.reserveRoom(rObj1);
 		System.out.println(selectedRoom.checkAvailability(GregCalToKeyTree(checkInDate)));
+		currentAccount.addReservation(rObj1);
 		update();
 	}
 
@@ -307,7 +308,7 @@ public class ReservationManager implements Serializable
 		return result;
 	}
 	//	
-	public String gregorianToString(GregorianCalendar cal)
+	public String gregorianToString(GregorianCalendar cal) //mm/dd/yyyy
 	{
 		String month = "" + (cal.get(Calendar.MONTH) +1);
 		if (month.length() == 1) month = "0" + month;
@@ -317,7 +318,7 @@ public class ReservationManager implements Serializable
 		return month + "/" + day + "/" + year;
 	}
 
-	public static String GregCalToKeyTree(GregorianCalendar someDate)
+	public static String GregCalToKeyTree(GregorianCalendar someDate) //yyyyMMdd
 	{
 		String yearStr, monthStr, dayStr;
 		

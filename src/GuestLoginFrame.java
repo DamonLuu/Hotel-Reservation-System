@@ -28,14 +28,9 @@ public class GuestLoginFrame extends JFrame
 	private String button;
 	
 
-	public GuestLoginFrame(ReservationManager m)
+	public GuestLoginFrame(ReservationManager m) //PUT MODEL IN PARAMETERS 
 	{
-		this();
 		model = m;
-	}
-
-	public GuestLoginFrame() //PUT MODEL IN PARAMETERS 
-	{
 		this.setTitle("Pen Pineapple Apple Pen Hotel Reservation System");
 		this.setSize(300, 200);
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
@@ -70,6 +65,7 @@ public class GuestLoginFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				//System.out.println("login pressed");
 				String loginID = loginTextfield.getText();
 				String firstName = firstNameField.getText();
 				String lastName = lastNameField.getText();
@@ -117,6 +113,7 @@ public class GuestLoginFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				System.out.println("make reservation pushed");
 				makeReservationFrame();
 			}
 		});
@@ -128,6 +125,7 @@ public class GuestLoginFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				System.out.println("cancel button pushed");
 				viewOrCancelReservationFrame();
 			}
 		});
@@ -342,7 +340,7 @@ public class GuestLoginFrame extends JFrame
 		cancelReservationFrame.setLayout(new BorderLayout());
 
 		JLabel topLabel = new JLabel("Listed below is all your reservations");
-
+		System.out.println("at cancel panel");
 		JTextArea changeLater = new JTextArea(model.getAccount().reservationToString());
 		changeLater.setPreferredSize(new Dimension(275,250));
 

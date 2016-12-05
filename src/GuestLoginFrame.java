@@ -4,25 +4,26 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class GuestLoginFrame extends JFrame
 {
 
 	private ReservationManager model;
+	private String button;
 
 	public GuestLoginFrame(ReservationManager m)
 	{
@@ -140,6 +141,8 @@ public class GuestLoginFrame extends JFrame
 	{
 		JFrame makeReservationFrame = new JFrame("Make a Reservation");
 		makeReservationFrame.setLayout(new BorderLayout());
+		JTextArea listAllRoomsTextArea = new JTextArea();
+
 
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));		
@@ -148,22 +151,40 @@ public class GuestLoginFrame extends JFrame
 		datePanel.setLayout(new GridLayout(2, 2));
 
 		JLabel checkInLabel = new JLabel("Check In Date:");
-		
+
 		GregorianCalendar today = new GregorianCalendar();
 		String todayMonth = "" + (today.get(Calendar.MONTH)+1);
+		if (todayMonth.length() == 1)
+		{
+			todayMonth = "0" + todayMonth;
+		}
+
 		String todayDay = "" + today.get(Calendar.DAY_OF_MONTH);
+		if (todayDay.length() == 1)
+		{
+			todayDay = "0" + todayDay;
+		}
+
 		String todayYear = "" + today.get(Calendar.YEAR);
 		String niceTodayDate = todayMonth + "/" + todayDay + "/" + todayYear;
-		
+
 		GregorianCalendar nextWeek = new GregorianCalendar();
-		
+
 		nextWeek.add(Calendar.DAY_OF_MONTH, 7);
-		
+
 		String nextWeekMonth = "" + (nextWeek.get(Calendar.MONTH)+1);
+		if (nextWeekMonth.length() == 1)
+		{
+			nextWeekMonth = "0" + nextWeekMonth;
+		}
 		String nextWeekDay = "" + nextWeek.get(Calendar.DAY_OF_MONTH);
+		if (nextWeekDay.length() == 1)
+		{
+			nextWeekDay= "0" + nextWeekDay;
+		}
 		String nextWeekYear = "" + nextWeek.get(Calendar.YEAR);
 		String niceNextWeekDate = nextWeekMonth + "/" + nextWeekDay + "/" + nextWeekYear;
-		
+
 		JTextField checkInText = new JTextField(niceTodayDate);		
 		JLabel checkOutLabel = new JLabel("Check Out Date:");
 		JTextField checkOutText = new JTextField(niceNextWeekDate);
@@ -174,10 +195,85 @@ public class GuestLoginFrame extends JFrame
 		datePanel.add(checkOutText);
 		topPanel.add(datePanel);
 
-		String button = "";
-		JRadioButton economyButton = new JRadioButton("Economy $80");
-		JRadioButton luxuryButton = new JRadioButton("Luxury $200");
-		ButtonGroup buttonGroup = new ButtonGroup();
+		JButton luxuryButton = new JButton("Luxury $200");
+		luxuryButton.addActionListener(new ActionListener()
+		{	
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				if (model.validDateFormat(checkInText.getText(), checkOutText.getText()))
+				{
+					try 
+					{
+						if(model.dateBeforeCheck(checkInText.getText(), checkOutText.getText()))
+						{
+							beforeTodayDateFrame();
+						}
+						else
+						{
+							if(model.dateLongerThan60(checkInText.getText(), checkOutText.getText()))
+							{
+								longerThan60Frame();
+							}
+							else 
+							{
+								listAllRoomsTextArea.setText(model.findRoom(checkInText.getText(), checkOutText.getText(), "Luxury"));
+							}
+						}
+					}
+					catch (ParseException e1) 
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				else
+				{
+					incorrectTimeFrame();
+				}
+			}
+		});
+
+		JButton economyButton = new JButton("Economy $80");
+		economyButton.addActionListener(new ActionListener()
+		{	
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				if (model.validDateFormat(checkInText.getText(), checkOutText.getText()))
+				{
+					try 
+					{
+						if(model.dateBeforeCheck(checkInText.getText(), checkOutText.getText()))
+						{
+							beforeTodayDateFrame();
+						}
+						else
+						{
+							if(model.dateLongerThan60(checkInText.getText(), checkOutText.getText()))
+							{
+								longerThan60Frame();
+							}
+							else 
+							{
+								listAllRoomsTextArea.setText(model.findRoom(checkInText.getText(), checkOutText.getText(), "Economy"));
+							}
+						}
+					}
+					catch (ParseException e1) 
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				else
+				{
+					incorrectTimeFrame();
+				}
+			}
+		});
+
+
 
 		if (economyButton.isSelected())
 		{
@@ -188,22 +284,30 @@ public class GuestLoginFrame extends JFrame
 			button = "Luxury";
 		}
 
-		buttonGroup.add(economyButton);
-
-
-		buttonGroup.add(luxuryButton);
-		buttonGroup.setSelected(luxuryButton.getModel(), true);
-
 		JPanel buttonPanel = new JPanel();
 		JLabel roomType = new JLabel("Room Type: ");
 		buttonPanel.add(roomType);
-		buttonPanel.add(economyButton);
 		buttonPanel.add(luxuryButton);
+		buttonPanel.add(economyButton);
 		topPanel.add(buttonPanel);
 
-		//JTextArea changeLater = new JTextArea("Change this later to show all available rooms");
-		JTextArea changeLater = new JTextArea(model.findRoom(checkInText.getText(), checkOutText.getText(), button));
-		changeLater.setPreferredSize(new Dimension(275,250));
+
+		listAllRoomsTextArea.setPreferredSize(new Dimension(275,250));
+
+		//testing change listener
+		ChangeListener changeListener = new ChangeListener() 
+		{	
+			@Override
+			public void stateChanged(ChangeEvent e) 
+			{
+				final String currentButton = new String(button);
+				String allAvailable = model.findRoom(checkInText.getText(), checkOutText.getText(), button);
+				listAllRoomsTextArea.setText(allAvailable);
+			}
+		};
+		model.attach(changeListener);
+
+		//
 
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new BorderLayout());
@@ -254,7 +358,7 @@ public class GuestLoginFrame extends JFrame
 		southPanel.add(bottomButtonPanel, BorderLayout.SOUTH);
 
 		makeReservationFrame.add(topPanel, BorderLayout.NORTH);
-		makeReservationFrame.add(changeLater, BorderLayout.CENTER);
+		makeReservationFrame.add(listAllRoomsTextArea, BorderLayout.CENTER);
 		makeReservationFrame.add(southPanel, BorderLayout.SOUTH);
 
 		makeReservationFrame.pack();
@@ -289,7 +393,7 @@ public class GuestLoginFrame extends JFrame
 		cancelReservationFrame.pack();
 		cancelReservationFrame.setVisible(true);
 	}
-	
+
 	public void incorrectLoginFrame()
 	{
 		JFrame incorrectLoginFrame = new JFrame("Incorrect Login Info");
@@ -308,7 +412,67 @@ public class GuestLoginFrame extends JFrame
 		incorrectLoginFrame.add(errorText, BorderLayout.NORTH);
 		incorrectLoginFrame.add(closeButton, BorderLayout.SOUTH);
 		incorrectLoginFrame.pack();
-		incorrectLoginFrame.setVisible(true);
-		
+		incorrectLoginFrame.setVisible(true);	
+	}
+
+	public void incorrectTimeFrame()
+	{
+		JFrame incorrectTimeFrame = new JFrame("Incorrect Time Format");
+		incorrectTimeFrame.setLayout(new BorderLayout());
+		JLabel errorText = new JLabel("Time format is incorrect, must match mm/dd/yyyy. EX) 01/01/2016", SwingConstants.CENTER);
+		errorText.setPreferredSize(new Dimension(400,100));
+		JButton closeButton = new JButton("Close");
+		closeButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				incorrectTimeFrame.dispose();
+			}
+		});
+
+		incorrectTimeFrame.add(errorText, BorderLayout.NORTH);
+		incorrectTimeFrame.add(closeButton, BorderLayout.SOUTH);
+		incorrectTimeFrame.pack();
+		incorrectTimeFrame.setVisible(true);	
+	}
+
+	public void beforeTodayDateFrame()
+	{
+		JFrame incorrectDateFrame = new JFrame("Check-In or Check-out error");
+		incorrectDateFrame.setLayout(new BorderLayout());
+		JLabel errorText = new JLabel("Check-In or Check-out date is before today", SwingConstants.CENTER);
+		errorText.setPreferredSize(new Dimension(300,100));
+		JButton closeButton = new JButton("Close");
+		closeButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				incorrectDateFrame.dispose();
+			}
+		});
+		incorrectDateFrame.add(errorText, BorderLayout.NORTH);
+		incorrectDateFrame.add(closeButton, BorderLayout.SOUTH);
+		incorrectDateFrame.pack();
+		incorrectDateFrame.setVisible(true);	
+	}
+
+	public void longerThan60Frame()
+	{
+		JFrame incorrectDateFrame = new JFrame("Your Stay Too Long");
+		incorrectDateFrame.setLayout(new BorderLayout());
+		JLabel errorText = new JLabel("Your reservation cannot be longer than 60 days, please try again.", SwingConstants.CENTER);
+		errorText.setPreferredSize(new Dimension(400,100));
+		JButton closeButton = new JButton("Close");
+		closeButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				incorrectDateFrame.dispose();
+			}
+		});
+		incorrectDateFrame.add(errorText, BorderLayout.NORTH);
+		incorrectDateFrame.add(closeButton, BorderLayout.SOUTH);
+		incorrectDateFrame.pack();
+		incorrectDateFrame.setVisible(true);	
 	}
 }

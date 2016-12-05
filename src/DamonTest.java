@@ -6,9 +6,9 @@ public class DamonTest {
 		
 		ReservationManager rm = new ReservationManager();
 		rm.getAccountManager().addAccount("123", "John", "Smith");
-		new WelcomeFrame(rm);
+		//new WelcomeFrame(rm);
 		
-		//new GuestLoginFrame(rm).makeReservationFrame();
+		new GuestLoginFrame(rm).makeReservationFrame();
 		//new ManagerFrame();
 		//test githubbot
 		

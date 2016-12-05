@@ -1,5 +1,9 @@
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.event.ChangeEvent;
@@ -223,6 +227,38 @@ public class ReservationManager
     	cListeners.add(c);
     }
 	
+	public boolean dateBeforeCheck(String checkIn, String checkOut) throws ParseException
+	{
+		DateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		String today = simpleDateFormat.format(new Date());
+		Date todayDate = simpleDateFormat.parse(today);
+		Date checkInDate = simpleDateFormat.parse(checkIn);
+		Date checkOutDate = simpleDateFormat.parse(checkOut);
+		if (checkInDate.before(todayDate) || checkOutDate.before(todayDate))
+		{
+			return true;
+		}
+		return false;
+	}
 	
+	public boolean dateLongerThan60(String checkIn, String checkOut) throws ParseException
+	{
+		DateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		Date checkInDate = simpleDateFormat.parse(checkIn);
+		Date checkOutDate = simpleDateFormat.parse(checkOut);
+		
+		long dayInMilliSec = 1000 * 60 * 60 * 24;
+		if(((checkOutDate.getTime() - checkInDate.getTime()) / dayInMilliSec) > 60)
+		{
+			return true;
+		}
+		return false;
+	}
 	
+	public boolean validDateFormat(String checkIn, String checkOut)
+	{
+		return checkIn.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") && checkOut.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})");
+	}
+
+
 }

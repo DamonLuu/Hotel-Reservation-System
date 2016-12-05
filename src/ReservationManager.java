@@ -9,10 +9,11 @@ import java.util.GregorianCalendar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import java.io.Serializable;
 /**
  * This is the Data Model
  */
-public class ReservationManager 
+public class ReservationManager implements Serializable
 {
 	//Data Model (Subject) for MVC
 	//private Room[] luxRooms = new Room[10];

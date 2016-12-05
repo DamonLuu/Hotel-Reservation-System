@@ -1,3 +1,4 @@
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Reservation
@@ -55,5 +56,24 @@ public class Reservation
 	public Account getAccount()
 	{
 		return account;
+	}
+	
+	public String gregorianToString(GregorianCalendar cal) //mm/dd/yyyy
+	{
+		String month = "" + (cal.get(Calendar.MONTH) +1);
+		if (month.length() == 1) month = "0" + month;
+		String day = "" + cal.get(Calendar.DAY_OF_MONTH);
+		if (day.length() == 1) day = "0" + day;
+		String year = "" + cal.get(Calendar.YEAR);
+		return month + "/" + day + "/" + year;
+	}
+	
+	public String toString()
+	{
+		String roomNumber = "Room #" + room.getRoomNumber()+ ", ";
+		String roomType = "Room Type: " + room.getRoomType() + ", ";
+		String checkInDate = "Check-In Date: " + gregorianToString(startDate) + ", ";
+		String checkOutDate = "Check-Out Date: " + gregorianToString(endDate);
+		return roomNumber + roomType + checkInDate + checkOutDate;
 	}
 }

@@ -103,7 +103,7 @@ public class Room
 		{
 			
 			String key = GregCalToKey(date);
-			
+			//System.out.println(key);
 			reservationsMade.put(key, rObj);
 			
 			date.add(GregorianCalendar.DAY_OF_MONTH, 1);
@@ -170,7 +170,7 @@ public class Room
 		
 		String[] temp = DateEntered.split("/");
 		
-		GregorianCalendar result = new GregorianCalendar(Integer.parseInt(temp[2]),Integer.parseInt(temp[0]),Integer.parseInt(temp[1]));
+		GregorianCalendar result = new GregorianCalendar(Integer.parseInt(temp[2]),Integer.parseInt(temp[0])-1,Integer.parseInt(temp[1]));
 		
 		return result;
 	}

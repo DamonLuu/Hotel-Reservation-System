@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Reservation
+public class Reservation implements Serializable
 {
 	private GregorianCalendar startDate;
 	private GregorianCalendar endDate;

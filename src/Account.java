@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class Account 
+public class Account implements Serializable
 {
 	private String loginID;
 	private String firstName;

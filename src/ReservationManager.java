@@ -12,6 +12,12 @@ import java.util.TreeMap;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 /**
  * This is the Data Model
@@ -25,7 +31,7 @@ public class ReservationManager implements Serializable
 	private Account currentAccount;
 	
 	private ArrayList<Reservation> reservations = new ArrayList<>();
-	
+	private ArrayList<Object> testSave = new ArrayList<>();
 
 	//Arraylist of ChangeLister for MVC
 	private ArrayList<ChangeListener> cListeners;
@@ -342,7 +348,7 @@ public class ReservationManager implements Serializable
 		ArrayList<Room> openRooms = new ArrayList<>();
 		
 		outsideLoop:
-		for (Room r : rooms)
+		for (Room r : allRooms)
 		{
 			GregorianCalendar temp2 = startDate;
 			while(!temp2.equals(endDate))		
@@ -360,11 +366,6 @@ public class ReservationManager implements Serializable
 		
 	}
 
-	public Room getRoom(int roomNumber)
-	{
-		return rooms[roomNumber];
-	}
-
 	public void signIn() //prob not needed
 	{
 		
@@ -380,8 +381,12 @@ public class ReservationManager implements Serializable
 		try{
 	        FileOutputStream fileOut = new FileOutputStream("events.ser");
 	        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	        //out.writeObject(test);
-	        out.writeObject(this);
+	        //System.out.println(this.getClass());
+	        //out.writeObject(this);
+	        testSave.add(am);
+	        testSave.add(allRooms);
+	        testSave.add(reservations);
+	        out.writeObject(testSave);
 	        out.close();
 	        fileOut.close();
 	    }catch(IOException i) {
@@ -402,8 +407,14 @@ public class ReservationManager implements Serializable
 		try {
 	         FileInputStream fileIn = new FileInputStream("events.ser");
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
-	         //test = (ArrayList<Object>) in.readObject();
-	         this = (ReservationManager) in.readObject();
+	         testSave = (ArrayList<Object>) in.readObject();
+	         //ReservationManager a = (ReservationManager) in.readObject();
+	         //this.am = a.getAccountManager();
+	         //this.allRooms = a.getAllRooms();
+	         //this.reservations = a.getReservations();
+	         am = (AccountManager) testSave.get(0);
+	         allRooms = (Room[]) testSave.get(1);
+	         reservations = (ArrayList<Reservation>) testSave.get(2);
 	         in.close();
 	         fileIn.close();
 	      }catch(IOException i) {

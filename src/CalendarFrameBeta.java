@@ -292,7 +292,7 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		loadButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("Load Existing Reservations");	
+				model.loadReservation();
 			}
 		});
 		
@@ -301,7 +301,7 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		saveButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("Save Current Reservations");
+				model.saveReservation();
 				
 			}
 		});

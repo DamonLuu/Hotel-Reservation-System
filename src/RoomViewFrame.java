@@ -17,7 +17,7 @@ public class RoomViewFrame extends JFrame implements ChangeListener{
 	public RoomViewFrame(ReservationManager m){
 		
 		model = m;
-		
+		this.setLocation(0, 490);
 		JTextArea roomInfo = new JTextArea(10,10);
 		//roomInfo.setSize(10,10);
 		

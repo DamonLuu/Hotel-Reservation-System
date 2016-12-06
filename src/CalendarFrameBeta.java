@@ -26,7 +26,7 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 	private JLabel CalendarTopLabel; //the month/year the current day is in, painted on the top of month view.
 	
 	private static String[] Days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"}; //label for printing days of week.
-	private static String[] Months ={ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}; //label for printing month.
+	private static String[] Months ={ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}; //label for printing month.
 
 	/**
 	 * Constructs a window with a clickable calendar and day view.
@@ -44,7 +44,7 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		//Paint the heading "Sun, Mon, Tue,..." on top
 		for(int i=0;i<7;i++)
 		{
-			monthPanel.add(new JLabel(Days[i]));
+			monthPanel.add(new JLabel(Days[i], SwingConstants.CENTER));
 		}
 		
 		//Create 42 empty buttons in a grid with labels for day in month
@@ -114,13 +114,13 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		
 		//The ">" button and the associated listener represents a "Controller"
 		//This "Controller" calls mutator to change selectedDate of "Model"
-		JButton nextButton = new JButton(">");
+		JButton nextButton = new JButton("Month >");
 		nextButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				GregorianCalendar oldDate = (GregorianCalendar)(model.getSelectedDate().clone());
-				oldDate.add(GregorianCalendar.DAY_OF_MONTH,1);
+				oldDate.add(GregorianCalendar.MONTH,1);
 				
 				int year = oldDate.get(GregorianCalendar.YEAR);
 				int month = oldDate.get(GregorianCalendar.MONTH);
@@ -146,13 +146,77 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		
 		//The "<" button and the associated listener represents a "Controller"
 		//This "Controller" calls mutator to change selectedDate of "Model"
-		JButton prevButton = new JButton("<");
+		JButton prevButton = new JButton("< Month");
 		prevButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				GregorianCalendar oldDate = (GregorianCalendar)(model.getSelectedDate().clone());
-				oldDate.add(GregorianCalendar.DAY_OF_MONTH,-1);
+				oldDate.add(GregorianCalendar.MONTH,-1);
+				
+				int year = oldDate.get(GregorianCalendar.YEAR);
+				int month = oldDate.get(GregorianCalendar.MONTH);
+				int day = oldDate.get(GregorianCalendar.DAY_OF_MONTH);
+				
+				model.selectDate(new GregorianCalendar(year,month,day));
+				
+				for(JButton bb : dayButtons)
+				{
+					bb.setFocusPainted(false);
+					bb.setContentAreaFilled(false);
+					bb.setBorderPainted(false);
+					
+					if(bb.getText().equals(Integer.toString(day)))
+					{
+						bb.setBorderPainted(true);
+					}
+					
+				}				
+			}
+		});		
+		
+		
+		//The ">" button and the associated listener represents a "Controller"
+		//This "Controller" calls mutator to change selectedDate of "Model"
+		JButton nextButtonYear = new JButton("Year >");
+		nextButtonYear.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				GregorianCalendar oldDate = (GregorianCalendar)(model.getSelectedDate().clone());
+				oldDate.add(GregorianCalendar.YEAR,1);
+				
+				int year = oldDate.get(GregorianCalendar.YEAR);
+				int month = oldDate.get(GregorianCalendar.MONTH);
+				int day = oldDate.get(GregorianCalendar.DAY_OF_MONTH);
+				
+				model.selectDate(new GregorianCalendar(year,month,day));
+				
+				for(JButton bb : dayButtons)
+				{
+					bb.setFocusPainted(false);
+					bb.setContentAreaFilled(false);
+					bb.setBorderPainted(false);
+					
+					if(bb.getText().equals(Integer.toString(day)))
+					{
+						bb.setBorderPainted(true);
+					}
+					
+				}
+				
+			}
+		});
+		
+		//The "<" button and the associated listener represents a "Controller"
+		//This "Controller" calls mutator to change selectedDate of "Model"
+		JButton prevButtonYear = new JButton("< Year");
+		prevButtonYear.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				GregorianCalendar oldDate = (GregorianCalendar)(model.getSelectedDate().clone());
+				oldDate.add(GregorianCalendar.YEAR,-1);
 				
 				int year = oldDate.get(GregorianCalendar.YEAR);
 				int month = oldDate.get(GregorianCalendar.MONTH);
@@ -181,6 +245,8 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		navigationPanel.setLayout(new FlowLayout());
 		navigationPanel.add(prevButton);
 		navigationPanel.add(nextButton);
+		navigationPanel.add(prevButtonYear);
+		navigationPanel.add(nextButtonYear);
 		
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -190,7 +256,9 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		
 		int m = model.getSelectedDate().get(GregorianCalendar.MONTH);
 		
-		CalendarTopLabel = new JLabel(""+Months[m]+" "+model.getSelectedDate().get(GregorianCalendar.YEAR));
+		CalendarTopLabel = new JLabel(""+Months[m]+" "+model.getSelectedDate().get(GregorianCalendar.YEAR), SwingConstants.CENTER);
+		CalendarTopLabel.setFont(new Font("Calibri", Font.BOLD, 40));
+		CalendarTopLabel.setPreferredSize(new Dimension(420, 100));
 		
 		leftPanel.setLayout(new BorderLayout());
 		
@@ -258,7 +326,7 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		this.setTitle("Manager Month View");
 		
-		this.setSize(1000, 550);
+		this.setSize(1000, 500);
 		
 		this.add(leftPanel);
 		this.add(rightPanel);

@@ -16,7 +16,7 @@ public class SimpleReceipt implements ReceiptFormatter{
 	public String formatRoom(Account a) 
 	{
 		String t = "";
-		for(Reservation r : a.getCurrentTransactions()){
+		for(Reservation r : a.getCurrentTransaction()){
 			total += r.getRoom().getCost();
 			t += r.getRoom().getRoomNumber() + " ";
 		}

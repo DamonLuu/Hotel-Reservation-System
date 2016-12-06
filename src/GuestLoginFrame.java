@@ -385,11 +385,31 @@ public class GuestLoginFrame extends JFrame
 
 	public void receiptFrame()
 	{
-		JFrame receiptFrame = new JFrame("Receipt");
+		final JFrame receiptFrame = new JFrame("Receipt");
 		receiptFrame.setLayout(new BorderLayout());
-		JTextArea receiptInfo = new JTextArea("put receipt stuff here");
+		
+		final JTextArea receiptInfo = new JTextArea();
 		JScrollPane speakerScroll = new JScrollPane(receiptInfo, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		receiptInfo.setPreferredSize(new Dimension(300,600));
+		
+		JButton simpleReceiptButton = new JButton("Simple");
+		simpleReceiptButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				ReceiptFormatter rf = new SimpleReceipt();
+				final String receipt = model.formatSimpleReceipt(rf);
+				receiptInfo.setText(receipt);
+			}
+		});
+		JButton comprehensiveReceiptButton = new JButton("Comprehensive");
+		comprehensiveReceiptButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				ReceiptFormatter rf = new ComprehensiveReceipt();
+				final String receipt = model.formatComprehensiveReceipt(rf);
+				receiptInfo.setText(receipt);
+			}
+		});
 		JButton closeButton = new JButton("Close");
 		closeButton.addActionListener(new ActionListener() 
 		{
@@ -400,6 +420,8 @@ public class GuestLoginFrame extends JFrame
 		});
 		receiptFrame.add(speakerScroll, BorderLayout.NORTH);
 		receiptFrame.add(closeButton, BorderLayout.SOUTH);
+		receiptFrame.add(simpleReceiptButton, BorderLayout.WEST);
+		receiptFrame.add(comprehensiveReceiptButton, BorderLayout.EAST);
 		receiptFrame.pack();
 		receiptFrame.setVisible(true);	
 	}

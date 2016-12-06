@@ -72,11 +72,11 @@ public class GuestLoginFrame extends JFrame
 				String firstName = firstNameField.getText();
 				String lastName = lastNameField.getText();
 
-				Account temp = new Account(loginID, firstName, lastName);
-				if (model.getAccountManager().checkValidAccount(temp, firstName, lastName))
+				//Account temp = new Account(loginID, firstName, lastName);
+				if (model.getAccountManager().checkValidAccount(loginID, firstName, lastName))
 				{
 					dispose();
-					model.setAccount(temp);
+					model.setAccount(model.getAccountManager().findAccount(loginID));
 					GuestReservationOptionFrame();
 				}
 				else

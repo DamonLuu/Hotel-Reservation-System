@@ -23,15 +23,25 @@ public class AccountManager implements Serializable
 		acc.add(e);
 	}
 	
-	public boolean checkValidAccount(Account a, String firstName, String lastName)
+	public boolean checkValidAccount(String loginID, String firstName, String lastName)
 	{
-		if (getAccount(a.getLoginID()) != null)
+		Account found = findAccount(loginID);
+		if(found != null && found.getFirstName().equals(firstName) && found.getLastName().equals(lastName))
 		{
-			if (a.getFirstName().equals(firstName) && a.getLastName().equals(lastName))
-			{
-				return true;
-			}
-		}	
+			return true;
+		}
 		return false;
+	}
+	
+	public Account findAccount(String loginID)
+	{
+		for (Account account : acc)
+		{
+			if (account.getLoginID().equals(loginID))
+			{
+				return account;
+			}
+		}
+		return null;
 	}
 }

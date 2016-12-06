@@ -415,6 +415,7 @@ public class GuestLoginFrame extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				model.clearTransaction();
 				receiptFrame.dispose();
 			}
 		});

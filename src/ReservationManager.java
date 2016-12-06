@@ -333,5 +333,8 @@ public class ReservationManager implements Serializable
 		receipt += formatter.formatRoom(currentAccount);
 		return receipt + formatter.formatTransaction();
 	}
-	
+	public void clearTransaction()
+	{
+		currentAccount.clearTransaction();
+	}
 }

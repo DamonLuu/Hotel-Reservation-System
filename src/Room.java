@@ -19,7 +19,7 @@ public class Room
 	public Room(String roomType) 
 	{
 		//test = new
-		this.roomType = roomType.toLowerCase();
+		roomType = roomType.toLowerCase();
 		if (roomType.startsWith("l"))
 		{
 			roomType = "Luxurious";

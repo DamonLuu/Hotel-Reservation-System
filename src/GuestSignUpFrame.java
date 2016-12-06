@@ -10,6 +10,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -17,18 +18,16 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class GuestSignUpFrame extends JFrame
-{
-	
+{	
 	private ReservationManager model;
-	
-	public GuestSignUpFrame(ReservationManager m)
+
+	/**
+	 * Creates a frame that lets a guest sign up
+	 * @param m model
+	 */
+	public GuestSignUpFrame(ReservationManager m) //PUT MODEL IN PARAMETERS 
 	{
-		this();
 		model = m;
-	}
-	
-	public GuestSignUpFrame() //PUT MODEL IN PARAMETERS 
-	{
 		this.setTitle("Pen Pineapple Apple Pen Hotel Reservation System");
 		this.setSize(250, 200);
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
@@ -74,76 +73,21 @@ public class GuestSignUpFrame extends JFrame
 					}
 					else
 					{
-						idAlreadyTakenFrame();
+						JOptionPane.showMessageDialog(null, "Login ID already chose\n Please try a different Login ID");
 					}
 				}
 				else
 				{
-					emptyFieldError();
+					JOptionPane.showMessageDialog(null, "Every box must be filled out\n"+ "Please try again");
 				}
 			}
 		});
 		
 		buttonPanel.add(signUpButton);
-
 		
 		this.add(welcomeLabel);
 		this.add(signUpPanel);
 		this.add(buttonPanel);
-		//this.setResizable(false);
 		this.setVisible(true);
 	}
-	
-	public void emptyFieldError()
-	{
-		JFrame emptyErrorFrame = new JFrame("Empty Error");
-		emptyErrorFrame.setLayout(new BorderLayout());
-		JLabel errorText = new JLabel("Fill Out Every Box!!", SwingConstants.CENTER);
-		errorText.setPreferredSize(new Dimension(300,100));
-		JButton closeButton = new JButton("Close");
-		closeButton.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				emptyErrorFrame.dispose();
-			}
-		});
-
-		emptyErrorFrame.add(errorText, BorderLayout.NORTH);
-		emptyErrorFrame.add(closeButton, BorderLayout.SOUTH);
-		emptyErrorFrame.pack();
-		emptyErrorFrame.setVisible(true);
-	}
-	
-	public void idAlreadyTakenFrame()
-	{
-		JFrame incorrectLoginFrame = new JFrame("Login ID already used");
-		incorrectLoginFrame.setLayout(new BorderLayout());
-		
-		JPanel errorPanel = new JPanel();
-		errorPanel.setPreferredSize(new Dimension(300, 100));
-		
-		JLabel errorText = new JLabel("The Login ID you have chosen is in use.", SwingConstants.CENTER);
-		JLabel errorText2 = new JLabel("Please use a different login ID.", SwingConstants.CENTER);
-		
-		errorPanel.add(errorText);
-		errorPanel.add(errorText2);
-		
-		errorText.setPreferredSize(new Dimension(300,50));
-		JButton closeButton = new JButton("Close");
-		closeButton.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				incorrectLoginFrame.dispose();
-			}
-		});
-
-		incorrectLoginFrame.add(errorPanel, BorderLayout.NORTH);
-		incorrectLoginFrame.add(closeButton, BorderLayout.SOUTH);
-		incorrectLoginFrame.pack();
-		incorrectLoginFrame.setVisible(true);
-		
-	}
-	
 }

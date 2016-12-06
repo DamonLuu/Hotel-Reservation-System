@@ -22,12 +22,12 @@ public class Room
 		roomType = roomType.toLowerCase();
 		if (roomType.startsWith("l"))
 		{
-			roomType = "Luxurious";
+			this.roomType = "Luxurious";
 			cost = 200;
 		}
 		else if (roomType.startsWith("e"))
 		{
-			roomType = "Economic";
+			this.roomType = "Economic";
 			cost = 80;
 		}
 		reservationsMade = new TreeMap<String, Reservation>();

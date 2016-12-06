@@ -7,6 +7,7 @@ public class Account
 	private String firstName;
 	private String lastName;
 	ArrayList<Reservation> reservations;
+	private ArrayList<Reservation> currentTransaction;
 	
 	public Account(String loginID, String firstName, String lastName) 
 	{
@@ -14,6 +15,7 @@ public class Account
 		this.firstName = firstName;
 		this.lastName = lastName;
 		reservations = new ArrayList<Reservation>();
+		currentTransaction = new ArrayList<Reservation>();
 	}
 	
 	public String getLoginID()
@@ -35,12 +37,19 @@ public class Account
 	{
 		return reservations;
 	}
-	
+	public ArrayList<Reservation> getCurrentTransaction()
+	{
+		return currentTransaction;
+	}
 	public void addReservation(Reservation r)
 	{
 		reservations.add(r);
+		currentTransaction.add(r);
 	}
-	
+	public void clearTransaction()
+	{
+		currentTransaction.clear();
+	}
 	public String reservationToString()
 	{
 		String temp = "";

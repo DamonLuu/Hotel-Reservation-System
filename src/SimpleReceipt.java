@@ -11,18 +11,18 @@ public class SimpleReceipt implements ReceiptFormatter{
 	public String formatUserInfo(Account a) {
 		return (String.format("LoginID: %s\nName: %s %s\n",a.getLoginID(),a.getFirstName(),a.getLastName()));
 	}
-	/*
+	
 	@Override
-	public String formatRoom(Account a) {
-		total += r.getCost();
-		return (String.format("Reserved Room: %s\n", r.getRoomNumber()));
+	public String formatRoom(Account a) 
+	{
+		String t = "";
+		for(Reservation r : a.getCurrentTransactions()){
+			total += r.getRoom().getCost();
+			t += r.getRoom().getRoomNumber() + " ";
+		}
+		return (String.format("Reserved Room(s): Room#%s\n",t));
 	}
-	*/
-	@Override
-	public String formatRoom(Room r) {
-		total += r.getCost();
-		return (String.format("Reserved Room: %s\n", r.getRoomNumber()));
-	}
+
 	@Override
 	public String formatTransaction() {
 		return (String.format("TOTAL: %d\n",total));

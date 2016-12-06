@@ -25,7 +25,7 @@ public class ReservationManager implements Serializable
 	private Account currentAccount;
 	
 	private ArrayList<Reservation> reservations = new ArrayList<>();
-	private ArrayList<Reservation> reservationsInOneRun = new ArrayList<Reservation>(); //for simple receipt
+	
 
 	//Arraylist of ChangeLister for MVC
 	private ArrayList<ChangeListener> cListeners;
@@ -326,23 +326,12 @@ public class ReservationManager implements Serializable
 
 	}
 	//Context
-	public String formatSimpleReceipt(ReceiptFormatter formatter)
+	public String format(ReceiptFormatter formatter)
 	{
 		String receipt = formatter.formatHeader();
-		for(Reservation r : reservationsInOneRun)
-		{
-			receipt += formatter.formatRoom(r.getRoom());
-		}
+		receipt += formatter.formatUserInfo(currentAccount);
+		receipt += formatter.formatRoom(currentAccount);
 		return receipt + formatter.formatTransaction();
 	}
-	//Context
-	public String formatComprehensiveReceipt(ReceiptFormatter formatter)
-	{
-		String receipt = formatter.formatHeader();
-		for(Reservation r : currentAccount.getReservations())
-		{
-			receipt += formatter.formatRoom(r.getRoom());
-		}
-		return receipt + formatter.formatTransaction();
-	}
+	
 }

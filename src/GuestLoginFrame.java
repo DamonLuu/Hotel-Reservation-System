@@ -397,7 +397,7 @@ public class GuestLoginFrame extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				ReceiptFormatter rf = new SimpleReceipt();
-				final String receipt = model.formatSimpleReceipt(rf);
+				final String receipt = model.format(rf);
 				receiptInfo.setText(receipt);
 			}
 		});
@@ -406,7 +406,7 @@ public class GuestLoginFrame extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				ReceiptFormatter rf = new ComprehensiveReceipt();
-				final String receipt = model.formatComprehensiveReceipt(rf);
+				final String receipt = model.format(rf);
 				receiptInfo.setText(receipt);
 			}
 		});

@@ -11,21 +11,18 @@ public class ComprehensiveReceipt implements ReceiptFormatter{
 	public String formatUserInfo(Account a) {
 		return (String.format("LoginID: %s\nName: %s %s\n",a.getLoginID(),a.getFirstName(),a.getLastName()));
 	}
-	/*
+	
 	@Override
-	public String formatRoom(Account a) {
+	public String formatRoom(Account a) 
+	{
 		String t = "";
 		for(Reservation r : a.getReservations()){
 			total += r.getRoom().getCost();
 			t += r.getRoom().getRoomNumber() + " ";
 		}
-		return (String.format("Reserved Room(s): %s\n",t));
+		return (String.format("Reserved Room(s): Room#%s\n",t));
 	}
-	*/
-	public String formatRoom(Room r) {
-		total += r.getCost();
-		return (String.format("Reserved Room(s): %s\n",r.getRoomNumber()));
-	}
+	
 	@Override
 	public String formatTransaction() {
 		return (String.format("TOTAL: %d\n",total));

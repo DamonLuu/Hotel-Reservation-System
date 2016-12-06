@@ -394,6 +394,7 @@ public class ReservationManager implements Serializable
 	    }
 	}
 
+	//test edit on eclipse
 	public void viewInformation()
 	{
 

@@ -64,7 +64,7 @@ public class RoomViewFrame extends JFrame implements ChangeListener{
 		add(leftPanel,BorderLayout.WEST);
 		add(rightPanel,BorderLayout.CENTER);
 	
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 	

@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class ReservationManager implements Serializable
 {
 	//Data Model (Subject) for MVC
-	private Room[] allRooms = new Room[20]; //econ rooms #0-9; lux rooms #19-20
+	private Room[] allRooms = new Room[20]; //luxury rooms #0-9; econ rooms #19-20
 	private AccountManager am = new AccountManager();
 	private GregorianCalendar selectedDate;
 	private Account currentAccount;
@@ -62,7 +62,7 @@ public class ReservationManager implements Serializable
 
 		printout = printout + (selectedDate.get(Calendar.MONTH)+1)+"/"+selectedDate.get(Calendar.DAY_OF_MONTH)+"/"+selectedDate.get(Calendar.YEAR)+":\n\n";
 
-		printout += "Economy Rooms: \n";
+		printout += "Luxury Rooms: \n";
 
 		for(int i=0;i<10;i++)
 		{
@@ -76,7 +76,7 @@ public class ReservationManager implements Serializable
 			}
 		}
 
-		printout += "\nLuxury Rooms: \n";
+		printout += "\nEconomy Rooms: \n";
 
 		for(int i=10;i<20;i++)
 		{
@@ -100,10 +100,10 @@ public class ReservationManager implements Serializable
 	public ReservationManager() 
 	{
 		for(int i=0;i<10;i++)
-		{allRooms[i] = new Room("Economy",i);}
+		{allRooms[i] = new Room("Luxury",i);}
 
 		for(int i=10;i<20;i++)
-		{allRooms[i] = new Room("Luxury",i);}
+		{allRooms[i] = new Room("Economy",i);}
 
 		selectedDate = new GregorianCalendar();
 

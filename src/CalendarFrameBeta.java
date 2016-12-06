@@ -266,7 +266,7 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		//this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		//this.pack();
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		
 

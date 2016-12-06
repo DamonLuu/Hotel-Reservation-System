@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -18,8 +19,6 @@ import java.io.Serializable;
 public class ReservationManager implements Serializable
 {
 	//Data Model (Subject) for MVC
-	//private Room[] luxRooms = new Room[10];
-	//private Room[] econRooms = new Room[10];
 	private Room[] allRooms = new Room[20]; //econ rooms #0-9; lux rooms #19-20
 	private AccountManager am = new AccountManager();
 	private GregorianCalendar selectedDate;
@@ -100,12 +99,6 @@ public class ReservationManager implements Serializable
 	 */
 	public ReservationManager() 
 	{
-		//		for(int i=0;i<luxRooms.length;i++)
-		//		{luxRooms[i] = new Room("Economic",i);}
-		//		
-		//		for(int i=0;i<econRooms.length;i++)
-		//		{econRooms[i] = new Room("Luxurious",i);}
-
 		for(int i=0;i<10;i++)
 		{allRooms[i] = new Room("Economy",i);}
 
@@ -155,7 +148,6 @@ public class ReservationManager implements Serializable
 
 		//ArrayList<Integer> openRooms = new ArrayList<>();
 
-
 		String stringOfAvailRooms="";
 
 		outsideLoop:
@@ -183,26 +175,20 @@ public class ReservationManager implements Serializable
 
 	public void cancelReservation(Room room, Reservation reserv)
 	{
-//		for (Map.Entry<String, Reservation> entry : room.getAvailability().entrySet())
-//		{
-//			if (entry.getValue().getAccount() == currentAccount)
-//			{
-//				room.getAvailability().remove(entry.getKey());
-//			}
-//		}
-		//Map<String, Reservation> map = room.getAvailability();
-		TreeMap<String, Reservation> treeMap = allRooms[7].getAvailability();
-		//treeMap.clear();
-		
-		for(String key : treeMap.keySet())
+
+		TreeMap<String, Reservation> treeMap = room.getAvailability();
+		Iterator<String> iter = treeMap.keySet().iterator();
 		{
-			if(treeMap.get(key) == reserv)
+			while(iter.hasNext())
 			{
-				//treeMap.remove(key);
-				treeMap.remove(key, reserv);
-				break;
+				String key = iter.next();
+				if(treeMap.get(key) == reserv)
+				{
+					iter.remove();
+				}
 			}
 		}
+		
 		update();
 	}
 
@@ -221,11 +207,6 @@ public class ReservationManager implements Serializable
 		System.out.println(selectedRoom.checkAvailability(GregCalToKeyTree(checkInDate)));
 		currentAccount.addReservation(rObj1);
 		update();
-	}
-
-	public void showAvailability(String checkIn, String checkOut, String roomNumber)
-	{
-		
 	}
 
 	/**
@@ -336,35 +317,13 @@ public class ReservationManager implements Serializable
 
 	public static String GregCalToKeyTree(GregorianCalendar someDate) //yyyyMMdd
 	{
-		String yearStr, monthStr, dayStr;
-		
-		yearStr = ""+someDate.get(GregorianCalendar.YEAR);
-		
-		int monthInt = someDate.get(GregorianCalendar.MONTH)+1; //return 11 for november
-		
-		if(monthInt<10)
-		{
-			monthStr = "0"+monthInt;
-		}
-		else
-		{
-			monthStr = ""+monthInt;
-		}
-		
-		int dayInt = someDate.get(GregorianCalendar.DAY_OF_MONTH);
-		
-		if(dayInt<10)
-		{
-			dayStr ="0"+dayInt;
-		}
-		else
-		{
-			dayStr = ""+dayInt;
-		}
-			
-		String result = yearStr+monthStr+dayStr;
-		
-		return result;
+		String year = "" + someDate.get(GregorianCalendar.YEAR);
+		String month = "" +someDate.get(GregorianCalendar.MONTH)+1; //return 11 for november
+		if (month.length()==1) month = "0" + month;
+		String day = "" + someDate.get(GregorianCalendar.DAY_OF_MONTH);
+		if (day.length()==1) day = "0" + day;
+		return year + month + day;
+
 	}
 	//Context
 	public String formatSimpleReceipt(ReceiptFormatter formatter)

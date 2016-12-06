@@ -15,17 +15,18 @@ public class SimpleReceipt implements ReceiptFormatter{
 	@Override
 	public String formatRoom(Account a) 
 	{
-		String t = "";
+		String res = "Reserved Room(s):";
 		for(Reservation r : a.getCurrentTransaction()){
 			total += r.getRoom().getCost();
-			t += r.getRoom().getRoomNumber() + " ";
+			String t = r.getRoom().getRoomNumber() + "";
+			res += (String.format("Room#%s ",t));
 		}
-		return (String.format("Reserved Room(s): Room#%s\n",t));
+		return res + "\n";
 	}
 
 	@Override
 	public String formatTransaction() {
-		return (String.format("TOTAL: %d\n",total));
+		return (String.format("TOTAL: $%d\n",total));
 	}
 	
 }

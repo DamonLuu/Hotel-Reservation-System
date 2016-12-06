@@ -15,16 +15,16 @@ public class ComprehensiveReceipt implements ReceiptFormatter{
 	@Override
 	public String formatRoom(Account a) 
 	{
-		String t = "";
+		String res = "Reserved Room(s):\n";
 		for(Reservation r : a.getReservations()){
 			total += r.getRoom().getCost();
-			t += r.getRoom().getRoomNumber() + " ";
+			res += r.toString() + "\n";
 		}
-		return (String.format("Reserved Room(s): Room#%s\n",t));
+		return res;
 	}
 	
 	@Override
 	public String formatTransaction() {
-		return (String.format("TOTAL: %d\n",total));
+		return (String.format("TOTAL: $%d\n",total));
 	}
 }

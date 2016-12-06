@@ -390,7 +390,7 @@ public class GuestLoginFrame extends JFrame
 		
 		final JTextArea receiptInfo = new JTextArea();
 		JScrollPane speakerScroll = new JScrollPane(receiptInfo, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		receiptInfo.setPreferredSize(new Dimension(300,600));
+		receiptInfo.setPreferredSize(new Dimension(600,300));
 		
 		JButton simpleReceiptButton = new JButton("Simple");
 		simpleReceiptButton.addActionListener(new ActionListener(){

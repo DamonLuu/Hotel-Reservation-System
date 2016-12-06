@@ -365,12 +365,7 @@ public class ReservationManager implements Serializable
 		return openRooms;
 		
 	}
-
-	public void signIn() //prob not needed
-	{
-		
-	}
-
+	
 	public void quit() //prob not needed, just save and close frames?
 	{
 		saveReservation();
@@ -394,7 +389,6 @@ public class ReservationManager implements Serializable
 	    }
 	}
 
-	//test edit on eclipse
 	public void viewInformation()
 	{
 

@@ -51,6 +51,11 @@ public class Account
 		return temp.trim();
 	}
 	
+	public void removeReservation(Reservation r)
+	{
+		reservations.remove(r);
+	}
+	
 	public String toString()
 	{
 		return "Login id: " + loginID + " Name: " + getFirstName() + " " + getLastName();

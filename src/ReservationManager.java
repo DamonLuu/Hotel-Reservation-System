@@ -188,7 +188,7 @@ public class ReservationManager implements Serializable
 				}
 			}
 		}
-		
+		currentAccount.removeReservation(reserv);
 		update();
 	}
 

@@ -432,6 +432,6 @@ public class ReservationManager implements Serializable
 	
 	public void printEmptyRooms()
 	{
-		
+	//test	
 	}
 }

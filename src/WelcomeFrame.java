@@ -3,32 +3,29 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-
-
+/**
+ * Initial frame that appears to allow user to choose between guest and manager
+ * @author damonluu
+ */
 public class WelcomeFrame extends JFrame
 {
-
 	private ReservationManager model;
 
-	public WelcomeFrame(ReservationManager model)
+	/**
+	 * Constructor for the welcome frame
+	 * @param model the reservationmodel
+	 */
+	public WelcomeFrame(ReservationManager m) 
 	{
-		this();
-		this.model = model;
-	}
-	
-	public WelcomeFrame() //PUT MODEL IN PARAMETERS 
-	{
+		this.model = m;
 		this.setTitle("Pen Pineapple Apple Pen Hotel Reservation System");
-
-
+		
 		JPanel container = new JPanel();
 		container.setPreferredSize(new Dimension(475, 325));
 

@@ -490,6 +490,7 @@ public class ReservationManager implements Serializable
 	         reservations = (ArrayList<Reservation>) testSave.get(2);
 	         in.close();
 	         fileIn.close();
+	         update();
 	      }catch(IOException i) {
 	         i.printStackTrace();
 	         return;

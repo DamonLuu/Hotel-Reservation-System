@@ -5,7 +5,12 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Calendar;
-
+/**
+ * Room class used by user when making a reservation
+ * Holds cost, room number, room type, and all reservations made for this room
+ * @author jonathansu,damonluu,stevenyen
+ *
+ */
 public class Room implements Serializable
 {
 	private int cost;
@@ -113,7 +118,6 @@ public class Room implements Serializable
 		}
 		
 	}
-	
 	
 	/**
 	 * Accessor method

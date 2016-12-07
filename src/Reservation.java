@@ -1,7 +1,12 @@
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
+/**
+ * Reservation class used for when users make a reservation
+ * Holds start date, end date, room of reservation, and account tied to reservation
+ * @author jonathansu,damonluu,stevenyen
+ *
+ */
 public class Reservation implements Serializable
 {
 	private GregorianCalendar startDate;
@@ -9,6 +14,13 @@ public class Reservation implements Serializable
 	private Room room;
 	private Account account;
 	
+	/**
+	 * Constructor of Reservation
+	 * @param startDate GregorianCalendar
+	 * @param endDate GregorianCalendar
+	 * @param room Room
+	 * @param account Account
+	 */
 	public Reservation(GregorianCalendar startDate, GregorianCalendar endDate, Room room, Account account) 
 	{
 		this.startDate = startDate;
@@ -53,12 +65,19 @@ public class Reservation implements Serializable
 	{
 		//Room checker = new Room(roomType)
 	}
-	
+	/**
+	 * Accessor to get user account of reservation
+	 * @return Account
+	 */
 	public Account getAccount()
 	{
 		return account;
 	}
-	
+	/**
+	 * Converts GregorianCalendar to String format eg. MM/DD/YYYY
+	 * @param cal GregorianCalendar
+	 * @return String
+	 */
 	public String gregorianToString(GregorianCalendar cal) //mm/dd/yyyy
 	{
 		String month = "" + (cal.get(Calendar.MONTH) +1);
@@ -68,7 +87,9 @@ public class Reservation implements Serializable
 		String year = "" + cal.get(Calendar.YEAR);
 		return month + "/" + day + "/" + year;
 	}
-	
+	/**
+	 * Returns string of Reservation eg. Room #3 RoomType: Luxurious Check-In Date: 12/1/2017 Check-Out Date: 12/4/2017
+	 */
 	public String toString()
 	{
 		String roomNumber = "Room #" + room.getRoomNumber()+ ", ";

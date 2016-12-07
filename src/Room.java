@@ -190,7 +190,7 @@ public class Room implements Serializable
 		
 		ReservationManager rm = new ReservationManager();
 		
-		CalendarFrameBeta calframe= new CalendarFrameBeta(rm);
+		MonthViewFrame calframe= new MonthViewFrame(rm);
 		
 		rm.attach(calframe);
 		

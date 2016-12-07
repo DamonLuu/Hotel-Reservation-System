@@ -22,15 +22,24 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
+/**
+ * This frame lets the guest log in and gives them guest options
+ * @author damonluu
+ *
+ */
 public class GuestLoginFrame extends JFrame
 {
-
 	private ReservationManager model;
 	private String button;
-	
 
-	public GuestLoginFrame(ReservationManager m) //PUT MODEL IN PARAMETERS 
+	/**
+	 * Constructor for guest login frame
+	 * @param m the reservation model
+	 */
+	public GuestLoginFrame(ReservationManager m)
 	{
 		model = m;
 		this.setTitle("Pen Pineapple Apple Pen Hotel Reservation System");
@@ -67,7 +76,6 @@ public class GuestLoginFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				//System.out.println("login pressed");
 				String loginID = loginTextfield.getText();
 				String firstName = firstNameField.getText();
 				String lastName = lastNameField.getText();
@@ -148,7 +156,6 @@ public class GuestLoginFrame extends JFrame
 		makeReservationFrame.setLayout(new BorderLayout());
 		JTextArea listAllRoomsTextArea = new JTextArea();
 
-
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));		
 
@@ -165,9 +172,37 @@ public class GuestLoginFrame extends JFrame
 
 		String niceNextWeekDate = model.gregorianToString(nextWeek);
 
+
+
 		JTextField checkInText = new JTextField(niceTodayDate);		
 		JLabel checkOutLabel = new JLabel("Check Out Date:");
 		JTextField checkOutText = new JTextField(niceNextWeekDate);
+
+		DocumentListener clear = new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				listAllRoomsTextArea.setText("");
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				listAllRoomsTextArea.setText("");
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				listAllRoomsTextArea.setText("");
+
+			}
+		};
+
+
+		checkInText.getDocument().addDocumentListener(clear);
+		checkOutText.getDocument().addDocumentListener(clear);
 
 		datePanel.add(checkInLabel);
 		datePanel.add(checkInText);
@@ -188,6 +223,10 @@ public class GuestLoginFrame extends JFrame
 						if(model.dateBeforeCheck(checkInText.getText(), checkOutText.getText()))
 						{
 							JOptionPane.showMessageDialog(null, "Check-in or Check-out date is before today");
+						}
+						else if (model.dateAfterCheck(checkInText.getText(), checkOutText.getText()))
+						{
+							JOptionPane.showMessageDialog(null, "Check-in date cannot be after Check-Out date");
 						}
 						else
 						{
@@ -215,7 +254,7 @@ public class GuestLoginFrame extends JFrame
 							+ "Example: 01/01/2017");
 				}
 				button = "Luxury";
-				
+
 			}
 		});
 
@@ -277,7 +316,7 @@ public class GuestLoginFrame extends JFrame
 			@Override
 			public void stateChanged(ChangeEvent e) 
 			{
-			//	final String currentButton = new String(button);
+				//	final String currentButton = new String(button);
 				String allAvailable = model.findRoom(checkInText.getText(), checkOutText.getText(), button);
 				listAllRoomsTextArea.setText(allAvailable);
 			}
@@ -297,15 +336,27 @@ public class GuestLoginFrame extends JFrame
 
 
 		JPanel bottomButtonPanel = new JPanel();
-		JButton confirmButton = new JButton("Confirm");
+		JButton confirmButton = new JButton("Confirm / More Reservations?");
 		confirmButton.addActionListener(new ActionListener() 
 		{	
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				model.makeReservation(checkInText.getText(), checkOutText.getText(), roomNumberTextArea.getText());
-				JOptionPane.showMessageDialog(null, "Your Room Has Been Reserved");
+				Room temp = model.getRoom(Integer.parseInt(roomNumberTextArea.getText()));
+				String[] split = checkInText.getText().split("/");
+				String key = split[2] + split[0] + split[1];
 				
+				if (temp.checkAvailability(key))
+				{
+					model.makeReservation(checkInText.getText(), checkOutText.getText(), roomNumberTextArea.getText());
+					JOptionPane.showMessageDialog(null, "Your Room Has Been Reserved");
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Room is not available, please try again");
+				}
+				
+
 			}
 		});
 
@@ -331,7 +382,6 @@ public class GuestLoginFrame extends JFrame
 		makeReservationFrame.add(southPanel, BorderLayout.SOUTH);
 
 		makeReservationFrame.pack();
-		//makeReservationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		makeReservationFrame.setVisible(true);		
 	}
 
@@ -344,17 +394,17 @@ public class GuestLoginFrame extends JFrame
 		JLabel topLabel = new JLabel("Listed below is all your reservations");
 		System.out.println("at cancel panel");
 		JTextArea changeLater = new JTextArea(model.getAccount().reservationToString());
-		
+
 		DefaultListModel<Reservation> test = new DefaultListModel<>();
 		JList<Reservation> jList = new JList<>();
-		
+
 		for(Reservation r : model.getAccount().getReservations())
 		{
 			test.addElement(r);
 		}
 		jList.setModel(test);
-		
-		
+
+
 		changeLater.setPreferredSize(new Dimension(275,250));
 
 		JButton cancelButton = new JButton("Cancel Selected Reservation");
@@ -387,11 +437,11 @@ public class GuestLoginFrame extends JFrame
 	{
 		final JFrame receiptFrame = new JFrame("Receipt");
 		receiptFrame.setLayout(new BorderLayout());
-		
+
 		final JTextArea receiptInfo = new JTextArea();
 		JScrollPane speakerScroll = new JScrollPane(receiptInfo, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		receiptInfo.setPreferredSize(new Dimension(600,300));
-		
+
 		JButton simpleReceiptButton = new JButton("Simple");
 		simpleReceiptButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)

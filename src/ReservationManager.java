@@ -290,6 +290,19 @@ public class ReservationManager implements Serializable
 		}
 		return false;
 	}
+	
+	public boolean dateAfterCheck(String checkIn, String checkOut) throws ParseException
+	{
+		GregorianCalendar checkInDate = mmddyyyToGregCal(checkIn);
+		GregorianCalendar checkOutDate = mmddyyyToGregCal(checkOut);
+
+		if (checkInDate.after(checkOutDate))
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Checks if the user reserves a room longer than 60 days
 	 * @param checkIn String

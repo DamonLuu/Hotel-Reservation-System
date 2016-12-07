@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.io.Serializable;
+
 /**
  * AccountManager class that holds data structure for all accounts
  * @author jonathansu,damonluu
  */
-import java.io.Serializable;
 public class AccountManager implements Serializable 
 {
 	private ArrayList<Account> acc;

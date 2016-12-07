@@ -1,38 +1,34 @@
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-
-
+/**
+ * Creates a frame that lets guest choose returning guest or sign up 
+ * @author damonluu
+ *
+ */
 public class GuestFrame extends JFrame
 {
 	private ReservationManager model;
-	
+
+	/**
+	 * Constructor for the guest frame
+	 * @param m the model
+	 */
 	public GuestFrame(ReservationManager m)
 	{
-		this();
 		model = m;
-	}
-
-	public GuestFrame() //PUT MODEL IN PARAMETERS 
-	{
 		this.setTitle("Guest Option Frame");
-		//this.setSize(500, 400);
-
 
 		JPanel container = new JPanel();
 		container.setPreferredSize(new Dimension(300, 300));
-		//container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
 		JLabel welcomeLabel = new JLabel("Guest Options", SwingConstants.CENTER);
 		welcomeLabel.setFont(new Font("Calibri", Font.BOLD, 25));
@@ -45,7 +41,7 @@ public class GuestFrame extends JFrame
 			public void actionPerformed(ActionEvent e) 
 			{
 				dispose();
-				GuestLoginFrame frame = new GuestLoginFrame(model);
+				new GuestLoginFrame(model);
 			}
 		});
 
@@ -55,7 +51,7 @@ public class GuestFrame extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				GuestSignUpFrame frame = new GuestSignUpFrame(model);
+				new GuestSignUpFrame(model);
 			}
 		});
 
@@ -64,15 +60,8 @@ public class GuestFrame extends JFrame
 		container.add(newGuestButton);
 
 		add(container);
-
-
 		pack();
-
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
 	}
 }
-
-
-

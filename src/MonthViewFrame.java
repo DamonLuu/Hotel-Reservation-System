@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,7 +14,7 @@ import javax.swing.event.ChangeListener;
  * This window contains components that are both "View" and "Controller" portion of MVC.
  *
  */
-public class CalendarFrameBeta extends JFrame implements ChangeListener
+public class MonthViewFrame extends JFrame implements ChangeListener
 {
 	private JPanel monthPanel; //the panel that displays the clikcable days of the month.
 	private ReservationManager model; //this reference is used by "View" to call accessor and "Controller" to call mutator on the data model.
@@ -30,7 +29,7 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 	 * Constructs a window with a clickable calendar and day view.
 	 * @param ev is the EventsManager (Data Mode) associated with this frame.
 	 */
-	public CalendarFrameBeta(ReservationManager ev)
+	public MonthViewFrame(ReservationManager ev)
 	{
 		model= ev; //Pass the reference of the associated data model to currentEV instant variable for storage.
 		
@@ -270,18 +269,9 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		//Day Panel that will dispalay the events on the selected day.
 		//This represents a "View" of the MVC "Model". Every time the "Controller" changes the selected
 		//Date of the "Model", "Notify" method is invoked on the "View" prompting it to reset the events displayed.
-		
-		JPanel dayPanel = new JPanel();
-		
 		dayViewArea = new JTextArea(15,50); //measured in character width not pixels.
-		
-		String textToDisplay = "Today's Events: \n";
-		
-		//String temp = model.dailyEvents(todayDate);
 		dayViewArea.setText(model.getSelectedDayRooms());
-		
-		//dayViewArea.setText(currentEV.dailyEvents(currentEV.getSelectedDate()));
-		
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Create and Quit Buttons
 				
@@ -343,8 +333,6 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
-		
-
 	}
 	
 	/**
@@ -360,7 +348,6 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 			b.setBorderPainted(false);
 		}
 	}
-	
 
 	/**
 	 * This represents the "Notify" method of the "View", and required by ChangeListener interface.
@@ -383,15 +370,9 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		int m = model.getSelectedDate().get(GregorianCalendar.MONTH);
 		
 		CalendarTopLabel.setText(Months[m]+" "+model.getSelectedDate().get(GregorianCalendar.YEAR));
-		
-		
-		
-		
 		dayViewArea.setText(model.getSelectedDayRooms());
-		//dayViewArea.setText(model.dailyEvents(model.getSelectedDate()));
-		
+		//dayViewArea.setText(model.dailyEvents(model.getSelectedDate()));		
 	}
-
 	
     /**
      * Helping method returning an ArrayList containing the labels for the days of the current month
@@ -443,13 +424,7 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
         }
         
         return dayLabels;
-   
     }
-	
-	
-	
-	
-	
 }
 
 

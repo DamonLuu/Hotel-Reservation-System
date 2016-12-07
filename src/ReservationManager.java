@@ -464,7 +464,7 @@ public class ReservationManager implements Serializable
 		String res = "Room Information:\n";
 		res += "Room #" + number;
 		res += "\nRoom Type: " + a.getRoomType();
-		res += "\nRoom Cost: " + a.getCost();
+		res += "\nRoom Cost: $" + a.getCost();
 		res += "\nReservations: \n";
 		Iterator<String> iter = b.keySet().iterator();
 		{		
@@ -482,10 +482,11 @@ public class ReservationManager implements Serializable
 					key = iter.next();
 					r = b.get(key);
 					Account user = r.getAccount();
-					res += "LoginID: " + user.getLoginID();
-					res += " User: " + user.getFirstName() + " " + user.getLastName() + "\n";
+					res += "\nLoginID: " + user.getLoginID();
+					res += ", User: " + user.getFirstName() + " " + user.getLastName() + "\n";
 					res += "Check-In Date: " + r.gregorianToString(r.getStartDate());
-					res += " Check-Out Date: " + r.gregorianToString(r.getEndDate());
+					res += ", Check-Out Date: " + r.gregorianToString(r.getEndDate());
+					res += "\n";
 				} else
 					key = iter.next();
 			}

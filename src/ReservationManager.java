@@ -389,9 +389,40 @@ public class ReservationManager implements Serializable
 	    }
 	}
 
-	public void viewInformation()
+	public String viewRoomInformation(int number) //Manager room click
 	{
-
+		Room a = allRooms[number];
+		TreeMap<String,Reservation> b = a.getAvailability();
+		String res = "Room Information:\n";
+		res += "Room #" + number;
+		res += "\nRoom Type: " + a.getRoomType();
+		res += "\nRoom Cost: " + a.getCost();
+		res += "\nReservations: \n";
+		Iterator<String> iter = b.keySet().iterator();
+		{		
+			String key = "";
+			Boolean preventDuplicate = false;
+			Reservation r = null;
+			while(iter.hasNext())
+			{
+				if(r != null && b.get(key) == r){
+					preventDuplicate = true;
+				} else
+					preventDuplicate = false;
+					
+				if(!preventDuplicate){
+					key = iter.next();
+					r = b.get(key);
+					Account user = r.getAccount();
+					res += "LoginID: " + user.getLoginID();
+					res += " User: " + user.getFirstName() + " " + user.getLastName() + "\n";
+					res += "Check-In Date: " + r.gregorianToString(r.getStartDate());
+					res += " Check-Out Date: " + r.gregorianToString(r.getEndDate());
+				} else
+					key = iter.next();
+			}
+		}
+		return res;
 	}
 
 	public void loadReservation()

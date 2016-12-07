@@ -40,7 +40,7 @@ public class RoomViewFrame extends JFrame implements ChangeListener{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("selected room: "+roomButton.getText());
-					
+					roomInfo.setText(model.viewRoomInformation(Integer.parseInt(roomButton.getText())));
 				}	
 			});
 			

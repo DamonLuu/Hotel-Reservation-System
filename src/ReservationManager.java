@@ -125,7 +125,6 @@ public class ReservationManager implements Serializable
 	 */
 	public String findRoom(String checkIn, String checkOut, String roomType)
 	{
-		//Room[] rooms2search;
 
 		String[] startInput = checkIn.split("/");
 		String[] endInput = checkOut.split("/");
@@ -365,29 +364,6 @@ public class ReservationManager implements Serializable
 		return openRooms;
 		
 	}
-	
-	public void quit() //prob not needed, just save and close frames?
-	{
-		saveReservation();
-	}
-
-	public void saveReservation()
-	{
-		try{
-	        FileOutputStream fileOut = new FileOutputStream("events.ser");
-	        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	        //System.out.println(this.getClass());
-	        //out.writeObject(this);
-	        testSave.add(am);
-	        testSave.add(allRooms);
-	        testSave.add(reservations);
-	        out.writeObject(testSave);
-	        out.close();
-	        fileOut.close();
-	    }catch(IOException i) {
-	    	i.printStackTrace();
-	    }
-	}
 
 	public String viewRoomInformation(int number) //Manager room click
 	{
@@ -434,10 +410,6 @@ public class ReservationManager implements Serializable
 	         FileInputStream fileIn = new FileInputStream("events.ser");
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
 	         testSave = (ArrayList<Object>) in.readObject();
-	         //ReservationManager a = (ReservationManager) in.readObject();
-	         //this.am = a.getAccountManager();
-	         //this.allRooms = a.getAllRooms();
-	         //this.reservations = a.getReservations();
 	         am = (AccountManager) testSave.get(0);
 	         allRooms = (Room[]) testSave.get(1);
 	         reservations = (ArrayList<Reservation>) testSave.get(2);
@@ -451,12 +423,22 @@ public class ReservationManager implements Serializable
 		         c.printStackTrace();
 		         return;
 		  }
-		//am = (AccountManager) test.get(0);
-		//rm = (ReservationManager) test.get(1);
 	}
-	
-	public void printEmptyRooms()
+	public void saveReservation()
 	{
-	//test	
+		try{
+	        FileOutputStream fileOut = new FileOutputStream("events.ser");
+	        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	        //System.out.println(this.getClass());
+	        //out.writeObject(this);
+	        testSave.add(am);
+	        testSave.add(allRooms);
+	        testSave.add(reservations);
+	        out.writeObject(testSave);
+	        out.close();
+	        fileOut.close();
+	    }catch(IOException i) {
+	    	i.printStackTrace();
+	    }
 	}
 }

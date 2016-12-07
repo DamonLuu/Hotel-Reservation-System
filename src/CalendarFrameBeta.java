@@ -7,8 +7,6 @@ import java.util.GregorianCalendar;
 
 import javax.swing.*;
 import javax.swing.event.*;
-
-import javax.swing.JPanel;
 import javax.swing.event.ChangeListener;
 
 /**
@@ -305,11 +303,21 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 			}
 		});
 		
+		JButton quitButton = new JButton("Save and Quit");
+		quitButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				model.saveReservation();
+				System.exit(0);
+			}
+		});
 	
 		buttonPanel2.setLayout(new FlowLayout());
 		buttonPanel2.add(loadButton);
 		buttonPanel2.add(saveButton);
-
+		buttonPanel2.add(quitButton);
+		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Right Panel that wil contain the Day Panel, create button, and quit button. It will be displayed
 		//on the right side of the main window, next to the month view.
@@ -331,7 +339,7 @@ public class CalendarFrameBeta extends JFrame implements ChangeListener
 		this.add(rightPanel);
 		this.setLayout(new FlowLayout());
 		//this.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		//this.pack();
+		this.pack();
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);

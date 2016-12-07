@@ -21,6 +21,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 /**
  * This is the Data Model
+ * @author jonathansu,damonluu,stevenyen
+ *
  */
 public class ReservationManager implements Serializable
 {
@@ -38,7 +40,7 @@ public class ReservationManager implements Serializable
 	
 	/**
 	 * Accessor method
-	 * @return
+	 * @return AccountManager
 	 */
 	public AccountManager getAccountManager()
 	{
@@ -177,7 +179,11 @@ public class ReservationManager implements Serializable
 			}
 		return stringOfAvailRooms;
 	}
-
+	/**
+	 * Mutator method that cancels reservation from account and rooms array
+	 * @param room Room
+	 * @param reserv Reservation
+	 */
 	public void cancelReservation(Room room, Reservation reserv)
 	{
 
@@ -196,7 +202,12 @@ public class ReservationManager implements Serializable
 		currentAccount.removeReservation(reserv);
 		update();
 	}
-
+	/**
+	 * Mutator that makes a reservation and adds it to the account, reservations arraylist, and room array
+	 * @param checkIn String
+	 * @param checkOut String
+	 * @param roomNumber String
+	 */
 	public void makeReservation(String checkIn, String checkOut, String roomNumber)
 	{
 		GregorianCalendar checkInDate = mmddyyyToGregCal(checkIn);
@@ -227,7 +238,9 @@ public class ReservationManager implements Serializable
 		update();
 
 	}
-	
+	/**
+	 * Mutator that updates the change listeners and view
+	 */
 	public void update()
 	{
 		for(ChangeListener l: cListeners)
@@ -257,7 +270,13 @@ public class ReservationManager implements Serializable
 	{
 		cListeners.add(c);
 	}
-
+	/**
+	 * Checks if the user tries to reserve a room starting before today's date
+	 * @param checkIn String
+	 * @param checkOut String
+	 * @return boolean true if check-in/check-out date is before today
+	 * @throws ParseException 
+	 */
 	public boolean dateBeforeCheck(String checkIn, String checkOut) throws ParseException
 	{
 		GregorianCalendar today = new GregorianCalendar();
@@ -271,7 +290,13 @@ public class ReservationManager implements Serializable
 		}
 		return false;
 	}
-
+	/**
+	 * Checks if the user reserves a room longer than 60 days
+	 * @param checkIn String
+	 * @param checkOut String
+	 * @return boolean true if longer than 60
+	 * @throws ParseException
+	 */
 	public boolean dateLongerThan60(String checkIn, String checkOut) throws ParseException
 	{
 		GregorianCalendar checkInDate = mmddyyyToGregCal(checkIn);
@@ -285,22 +310,38 @@ public class ReservationManager implements Serializable
 		}
 		return false;
 	}
-
+	/**
+	 * Checks if user input for Check-In/Check-out is correct eg MM/DD/YYYY
+	 * @param checkIn String
+	 * @param checkOut String
+	 * @return boolean true if valid format
+	 */
 	public boolean validDateFormat(String checkIn, String checkOut)
 	{
 		return checkIn.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") && checkOut.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})");
 	}
-
+	/**
+	 * Mutator that sets current account
+	 * Used when a new guest logs in
+	 * @param a
+	 */
 	public void setAccount(Account a)
 	{
 		currentAccount = a;
 	}
-
+	/**
+	 * Accessor that return current account
+	 * @return Account
+	 */
 	public Account getAccount()
 	{
 		return currentAccount;
 	}
-
+	/**
+	 * Converts a MM/DD/YYYY string to corresponding day in GregorianCalendar format
+	 * @param DateEntered String
+	 * @return GregorianCalendar
+	 */
 	public GregorianCalendar mmddyyyToGregCal(String DateEntered){
 
 		String[] temp = DateEntered.split("/");
@@ -309,7 +350,11 @@ public class ReservationManager implements Serializable
 
 		return result;
 	}
-	//	
+	/**
+	 * Converts GregorianCalendar to MM/DD/YYYY String format
+	 * @param cal GregorianCalendar
+	 * @return String
+	 */
 	public String gregorianToString(GregorianCalendar cal) //mm/dd/yyyy
 	{
 		String month = "" + (cal.get(Calendar.MONTH) +1);
@@ -319,7 +364,12 @@ public class ReservationManager implements Serializable
 		String year = "" + cal.get(Calendar.YEAR);
 		return month + "/" + day + "/" + year;
 	}
-
+	/**
+	 * Converts GregorianCalendar to YYYYMMDD Sting format
+	 * Used for accessing TreeMap<String,Reservation>
+	 * @param someDate GregorianCalendar
+	 * @return String
+	 */
 	public static String GregCalToKeyTree(GregorianCalendar someDate) //yyyyMMdd
 	{
 		String year = "" + someDate.get(GregorianCalendar.YEAR);
@@ -330,7 +380,12 @@ public class ReservationManager implements Serializable
 		return year + month + day;
 
 	}
-	//Context
+	/**
+	 * Context of Strategy Pattern for receipt use
+	 * Returns string of receipt: either simple and comprehensive
+	 * @param formatter ReceiptFormatter
+	 * @return String
+	 */
 	public String format(ReceiptFormatter formatter)
 	{
 		String receipt = formatter.formatHeader();
@@ -338,10 +393,21 @@ public class ReservationManager implements Serializable
 		receipt += formatter.formatRoom(currentAccount);
 		return receipt + formatter.formatTransaction();
 	}
+	/**
+	 * Mutator that clears arraylist of current account's transaction
+	 * Used for simple receipt
+	 */
 	public void clearTransaction()
 	{
 		currentAccount.clearTransaction();
 	}
+	/**
+	 * Finds all available rooms given a start date, end date, and room type
+	 * @param startDate GregorianCalendar
+	 * @param endDate GregorianCalendar
+	 * @param type String
+	 * @return ArrayList<Room>
+	 */
 	public ArrayList<Room> findRoom(GregorianCalendar startDate, GregorianCalendar endDate, String type)
 	{
 		ArrayList<Room> openRooms = new ArrayList<>();
@@ -364,7 +430,12 @@ public class ReservationManager implements Serializable
 		return openRooms;
 		
 	}
-
+	/**
+	 * Returns a string of room information like type, cost, and reservations
+	 * Used by manager to view individual room information
+	 * @param number int
+	 * @return String
+	 */
 	public String viewRoomInformation(int number) //Manager room click
 	{
 		Room a = allRooms[number];
@@ -400,7 +471,11 @@ public class ReservationManager implements Serializable
 		}
 		return res;
 	}
-
+	/**
+	 * Loads from events.ser account info, room info, and reservations
+	 * Uses deserialization
+	 * Used by manager
+	 */
 	public void loadReservation()
 	{
 		File file = new File("events.ser");
@@ -424,6 +499,11 @@ public class ReservationManager implements Serializable
 		         return;
 		  }
 	}
+	/**
+	 * Saves all account info, room info, and reservations to events.ser
+	 * Uses serialization
+	 * Used by manager
+	 */
 	public void saveReservation()
 	{
 		try{

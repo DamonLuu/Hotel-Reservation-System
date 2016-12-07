@@ -272,50 +272,13 @@ public class MonthViewFrame extends JFrame implements ChangeListener
 		dayViewArea = new JTextArea(15,50); //measured in character width not pixels.
 		dayViewArea.setText(model.getSelectedDayRooms());
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Create and Quit Buttons
-				
-		JPanel buttonPanel2 = new JPanel();
-		JButton loadButton = new JButton("Load Existing Reservations");
-		loadButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				model.loadReservation();	
-			}
-		});
-		
-		
-		JButton saveButton = new JButton("Save Current Reservations");
-		saveButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				model.saveReservation();
-			}
-		});
-		
-		JButton quitButton = new JButton("Save and Quit");
-		quitButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				model.saveReservation();
-				System.exit(0);
-			}
-		});
-	
-		buttonPanel2.setLayout(new FlowLayout());
-		buttonPanel2.add(loadButton);
-		buttonPanel2.add(saveButton);
-		buttonPanel2.add(quitButton);
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Right Panel that wil contain the Day Panel, create button, and quit button. It will be displayed
+		//Right Panel that will contain the Day Panel, create button, and quit button. It will be displayed
 		//on the right side of the main window, next to the month view.
 		
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BorderLayout());
-		
-		rightPanel.add(buttonPanel2, BorderLayout.SOUTH);
 		
 		rightPanel.add(dayViewArea,BorderLayout.CENTER);
 		

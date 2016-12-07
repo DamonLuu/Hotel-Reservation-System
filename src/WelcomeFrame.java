@@ -51,11 +51,12 @@ public class WelcomeFrame extends JFrame
 
 			public void actionPerformed(ActionEvent e) 
 			{
-				MonthViewFrame c =new MonthViewFrame(model);
-				model.attach(c);
+				//MonthViewFrame c =new MonthViewFrame(model);
+				//model.attach(c);
 				
-				RoomViewFrame r = new RoomViewFrame(model);
-				model.attach(r);
+				//RoomViewFrame r = new RoomViewFrame(model);
+				//model.attach(r);
+				ManagerFrame managerFrame = new ManagerFrame(model);
 			}
 		});
 

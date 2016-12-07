@@ -20,14 +20,13 @@ public class RoomViewFrame extends JFrame implements ChangeListener{
 	public RoomViewFrame(ReservationManager m){
 
 		model = m;
-		this.setLocation(0, 490);
+		this.setLocation(0, 470);
 		roomInfo = new JTextArea(10,10);
 
 		JPanel leftPanel = new JPanel();
 		leftPanel.setLayout(new BorderLayout());
 
 		leftPanel.add(new JLabel("Select Room Number Below"),BorderLayout.NORTH);
-
 
 		JPanel roomPanel = new JPanel();
 		roomPanel.setSize(200,200);

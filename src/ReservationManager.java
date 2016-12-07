@@ -77,7 +77,11 @@ public class ReservationManager implements Serializable
 			printout = printout +"     Room #" + allRooms[i].getRoomNumber()+": ";
 
 			if(allRooms[i].getAvailability().containsKey(dateString)){
-				printout += "Reserved\n";
+				printout += "Reserved, Guest: ";
+				printout += allRooms[i].getAvailability().get(dateString).getAccount().getFirstName()+" ";
+				printout += allRooms[i].getAvailability().get(dateString).getAccount().getLastName()+", ID#";
+				printout += allRooms[i].getAvailability().get(dateString).getAccount().getLoginID();
+				printout += "\n";
 			}
 			else{
 				printout += "Available\n";
@@ -91,7 +95,11 @@ public class ReservationManager implements Serializable
 			printout = printout +"     Room #" + allRooms[i].getRoomNumber()+": ";
 
 			if(allRooms[i].getAvailability().containsKey(dateString)){
-				printout += "Reserved\n";
+				printout += "Reserved, Guest: ";
+				printout += allRooms[i].getAvailability().get(dateString).getAccount().getFirstName()+" ";
+				printout += allRooms[i].getAvailability().get(dateString).getAccount().getLastName()+", ID#";
+				printout += allRooms[i].getAvailability().get(dateString).getAccount().getLoginID();
+				printout += "\n";				
 			}
 			else{
 				printout += "Available\n";

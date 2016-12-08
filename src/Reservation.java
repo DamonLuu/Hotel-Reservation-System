@@ -50,7 +50,6 @@ public class Reservation implements Serializable
 		return (GregorianCalendar) endDate.clone();
 	}
 	
-	
 	/**
 	 * Accessor method to get the room
 	 * @return room of reservation
@@ -60,11 +59,7 @@ public class Reservation implements Serializable
 		return room;
 	}
 	
-	
-	public void checkRoom()
-	{
-		//Room checker = new Room(roomType)
-	}
+
 	/**
 	 * Accessor to get user account of reservation
 	 * @return Account

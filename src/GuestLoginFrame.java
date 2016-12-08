@@ -103,11 +103,12 @@ public class GuestLoginFrame extends JFrame
 		this.setVisible(true);
 	}
 
+	/**
+	 * displays a frame that shows the guest their options
+	 */
 	public void GuestReservationOptionFrame()
 	{
 		JFrame guestReservationOptionFrame = new JFrame();
-		//guestReservationOptionFrame.setSize(350, 350);
-		//guestReservationOptionFrame.setLayout(new BoxLayout(guestReservationOptionFrame.getContentPane(), BoxLayout.Y_AXIS));
 
 		JPanel container = new JPanel();
 		container.setPreferredSize(new Dimension(350, 350));
@@ -150,6 +151,9 @@ public class GuestLoginFrame extends JFrame
 		guestReservationOptionFrame.setVisible(true);
 	}
 
+	/**
+	 * display frame that allows user to make a reservation
+	 */
 	public void makeReservationFrame()
 	{
 		JFrame makeReservationFrame = new JFrame("Make a Reservation");
@@ -171,8 +175,6 @@ public class GuestLoginFrame extends JFrame
 		nextWeek.add(Calendar.DAY_OF_MONTH, 7);
 
 		String niceNextWeekDate = model.gregorianToString(nextWeek);
-
-
 
 		JTextField checkInText = new JTextField(niceTodayDate);		
 		JLabel checkOutLabel = new JLabel("Check Out Date:");
@@ -385,6 +387,9 @@ public class GuestLoginFrame extends JFrame
 		makeReservationFrame.setVisible(true);		
 	}
 
+	/**
+	 * displays a frame that allows user to view/cancel their reservations
+	 */
 	public void viewOrCancelReservationFrame()
 	{
 		JFrame cancelReservationFrame = new JFrame("View/Cancel Reservation");
@@ -432,7 +437,9 @@ public class GuestLoginFrame extends JFrame
 		cancelReservationFrame.setVisible(true);
 	}
 
-
+	/**
+	 * generates a frame that displays the receipt 
+	 */
 	public void receiptFrame()
 	{
 		final JFrame receiptFrame = new JFrame("Receipt");

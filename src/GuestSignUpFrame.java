@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -6,26 +5,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
+
+/**
+ * @author damonluu
+ * Generates a frame that lets the user sign up
+ */
 public class GuestSignUpFrame extends JFrame
 {	
 	private ReservationManager model;
 
 	/**
-	 * Creates a frame that lets a guest sign up
-	 * @param m model
+	 * Constructor for guest sign up frame
+	 * @param m the reservation model
 	 */
-	public GuestSignUpFrame(ReservationManager m) //PUT MODEL IN PARAMETERS 
+	public GuestSignUpFrame(ReservationManager m) 
 	{
 		model = m;
 		this.setTitle("Pen Pineapple Apple Pen Hotel Reservation System");

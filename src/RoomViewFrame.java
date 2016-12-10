@@ -13,7 +13,8 @@ import java.awt.*;
 
 /**
  * Creates frame that shows the room view
- * @author stevenyen
+ * The room # buttons act as Controllers and the JTextArea roomInfo is a View
+ * @author stevenyen, jonathansu
  */
 public class RoomViewFrame extends JFrame implements ChangeListener{
 
@@ -48,7 +49,7 @@ public class RoomViewFrame extends JFrame implements ChangeListener{
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("selected room: "+roomButton.getText());
+					//System.out.println("selected room: "+roomButton.getText());
 					roomInfo.setText(model.viewRoomInformation(Integer.parseInt(roomButton.getText())));
 					roomClicked = roomButton.getText();
 				}	
@@ -80,7 +81,7 @@ public class RoomViewFrame extends JFrame implements ChangeListener{
 	@Override
 	public void stateChanged(ChangeEvent e) 
 	{
-		System.out.println(roomClicked);
+		//System.out.println(roomClicked);
 		roomInfo.setText(model.viewRoomInformation(Integer.parseInt(roomClicked)));
 	}
 }

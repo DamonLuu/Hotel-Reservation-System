@@ -175,7 +175,7 @@ public class ReservationManager implements Serializable
 				{
 					if(allRooms[i].getAvailability().containsKey(Room.GregCalToKey(tempDate)))
 					{
-						System.out.println("Room: " + i + " is Not Open");
+						//System.out.println("Room: " + i + " is Not Open");
 						continue outsideLoop;
 					}
 					tempDate.add(Calendar.DAY_OF_MONTH,1);
@@ -222,10 +222,9 @@ public class ReservationManager implements Serializable
 		Reservation rObj1 = new Reservation(checkInDate,checkOutDate,selectedRoom,currentAccount);
 		reservations.add(rObj1);
 		
-		System.out.println("Make reservation with check-in " + gregorianToString(checkInDate) + 
-				", check-out " + gregorianToString(checkOutDate));
+		//System.out.println("Make reservation with check-in " + gregorianToString(checkInDate) + ", check-out " + gregorianToString(checkOutDate));
 		selectedRoom.reserveRoom(rObj1);
-		System.out.println(selectedRoom.checkAvailability(GregCalToKeyTree(checkInDate)));
+		//System.out.println(selectedRoom.checkAvailability(GregCalToKeyTree(checkInDate)));
 		currentAccount.addReservation(rObj1);
 		update();
 	}
@@ -249,7 +248,7 @@ public class ReservationManager implements Serializable
 		for(ChangeListener l: cListeners)
 		{
 			l.stateChanged(new ChangeEvent(this));
-			System.out.println("listeners notified");
+			//System.out.println("listeners notified");
 		}
 	}
 

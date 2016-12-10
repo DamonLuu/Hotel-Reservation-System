@@ -12,11 +12,12 @@ import javax.swing.event.ChangeListener;
  * The main GUI window that contains an interactive month view with clickable days
  * and a day panel on the right side that displays the events on the selected date.
  * This window contains components that are both "View" and "Controller" portion of MVC.
+ * @author stevenyen
  *
  */
 public class MonthViewFrame extends JFrame implements ChangeListener
 {
-	private JPanel monthPanel; //the panel that displays the clikcable days of the month.
+	private JPanel monthPanel; //the panel that displays the clickable days of the month.
 	private ReservationManager model; //this reference is used by "View" to call accessor and "Controller" to call mutator on the data model.
 	private JButton[] dayButtons; //the clickable days as buttons.
 	private JTextArea dayViewArea; //the panel on the right that displays events on the selected date.

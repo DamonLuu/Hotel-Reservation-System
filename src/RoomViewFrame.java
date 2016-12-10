@@ -11,12 +11,20 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
+/**
+ * Creates frame that shows the room view
+ * @author stevenyen
+ */
 public class RoomViewFrame extends JFrame implements ChangeListener{
 
 	private ReservationManager model;
 	JTextArea roomInfo;
 	String roomClicked = "0";
 
+	/**
+	 * connstructor for the room view frame
+	 * @param m the reservation model
+	 */
 	public RoomViewFrame(ReservationManager m){
 
 		model = m;
@@ -66,6 +74,9 @@ public class RoomViewFrame extends JFrame implements ChangeListener{
 		setVisible(true);
 	}
 
+	/**
+	 * updates model with the clicked room
+	 */
 	@Override
 	public void stateChanged(ChangeEvent e) 
 	{

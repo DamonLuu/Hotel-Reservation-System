@@ -1,31 +1,32 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
+/**
+ * This class creates a frame that shows the manager their options
+ * @author damonluu
+ *
+ */
 public class ManagerFrame
 {
 	private ReservationManager model;
 	
-	public ManagerFrame(ReservationManager model) 
+	/**
+	 * Constructor for manager frame
+	 * @param m the reservation model
+	 */
+	public ManagerFrame(ReservationManager m) 
 	{
-		this.model = model;
+		this.model = m;
 		
 		JFrame managerFrame = new JFrame();
 		managerFrame.setLayout(new BorderLayout());
@@ -35,8 +36,6 @@ public class ManagerFrame
 		topLabel.setPreferredSize(new Dimension(350, 60));
 				
 		JPanel centerPanel = new JPanel();
-		//JTextField changeLater = new JTextField("Someone put a calendar here");
-		//changeLater.setPreferredSize(new Dimension(350,250));
 		JButton openMonthViewButton = new JButton("View");
 		
 		openMonthViewButton.addActionListener(new ActionListener(){
@@ -50,8 +49,6 @@ public class ManagerFrame
 		});
 		
 		centerPanel.add(openMonthViewButton);
-		
-		//JPanel rightPanel = new JPanel();
 		
 		JButton quit = new JButton("Save Data and Quit");
 		
@@ -98,6 +95,5 @@ public class ManagerFrame
 		
 		managerFrame.setVisible(true);
 		managerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
 	}
 }

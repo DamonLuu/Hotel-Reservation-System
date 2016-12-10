@@ -106,7 +106,6 @@ public class ReservationManager implements Serializable
 			}
 		}
 
-
 		return printout;
 	}
 
@@ -171,11 +170,9 @@ public class ReservationManager implements Serializable
 				GregorianCalendar tempDate = (GregorianCalendar)startDate.clone();
 				GregorianCalendar stopDate = (GregorianCalendar)endDate.clone();
 				stopDate.add(Calendar.DAY_OF_MONTH, 1);
-				//System.out.println(tempDate.get((Calendar.MONTH))+1 + "/" + tempDate.get(Calendar.DAY_OF_MONTH) + "/" + tempDate.get(Calendar.YEAR));
-				//System.out.println(stopDate.get((Calendar.MONTH))+1 + "/" + stopDate.get(Calendar.DAY_OF_MONTH) + "/" + stopDate.get(Calendar.YEAR));
+
 				while(tempDate.before(stopDate))
 				{
-					//System.out.println("2");
 					if(allRooms[i].getAvailability().containsKey(Room.GregCalToKey(tempDate)))
 					{
 						System.out.println("Room: " + i + " is Not Open");
@@ -241,8 +238,6 @@ public class ReservationManager implements Serializable
 	public void selectDate(GregorianCalendar d)
 	{
 		selectedDate = d;
-		//System.out.println("selectDate");
-
 		update();
 
 	}

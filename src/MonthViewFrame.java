@@ -9,10 +9,11 @@ import javax.swing.event.*;
 import javax.swing.event.ChangeListener;
 
 /**
- * The main GUI window that contains an interactive month view with clickable days
- * and a day panel on the right side that displays the events on the selected date.
+ * The month view window for hotel manager. This frame is created when manager selects "view" option
+ * The days are clickable and the calendar can be advanced forward/backward by month and year.
+ * The panel on the right side displays the room status on the selected date.
  * This window contains components that are both "View" and "Controller" portion of MVC.
- * @author stevenyen
+ * @author stevenyen, damonluu
  *
  */
 public class MonthViewFrame extends JFrame implements ChangeListener
@@ -20,15 +21,15 @@ public class MonthViewFrame extends JFrame implements ChangeListener
 	private JPanel monthPanel; //the panel that displays the clickable days of the month.
 	private ReservationManager model; //this reference is used by "View" to call accessor and "Controller" to call mutator on the data model.
 	private JButton[] dayButtons; //the clickable days as buttons.
-	private JTextArea dayViewArea; //the panel on the right that displays events on the selected date.
+	private JTextArea dayViewArea; //the panel on the right that displays room information on the selected date.
 	private JLabel CalendarTopLabel; //the month/year the current day is in, painted on the top of month view.
 	
 	private static String[] Days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"}; //label for printing days of week.
 	private static String[] Months ={ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}; //label for printing month.
 
 	/**
-	 * Constructs a window with a clickable calendar and day view.
-	 * @param ev is the EventsManager (Data Mode) associated with this frame.
+	 * Constructs a window with a clickable calendar and the room information area.
+	 * @param ev is the ReservationManager (Data Mode) associated with this frame.
 	 */
 	public MonthViewFrame(ReservationManager ev)
 	{
@@ -78,7 +79,7 @@ public class MonthViewFrame extends JFrame implements ChangeListener
 		
 		//Add ActionListeners to each button. These buttons and associated listeners
 		//represent "Controllers" for the "View" portion representing on the day
-		//panel on the right side that displays the selected day's event.
+		//panel on the right side that displays the selected day's room status.
 		for(int i=0;i<42;i++)
 		{
 			
@@ -267,7 +268,7 @@ public class MonthViewFrame extends JFrame implements ChangeListener
 		leftPanel.add(navigationPanel, BorderLayout.SOUTH);
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Day Panel that will dispalay the events on the selected day.
+		//Room info panel that will dispalay the room status on the selected day.
 		//This represents a "View" of the MVC "Model". Every time the "Controller" changes the selected
 		//Date of the "Model", "Notify" method is invoked on the "View" prompting it to reset the events displayed.
 		dayViewArea = new JTextArea(15,50); //measured in character width not pixels.
@@ -275,7 +276,7 @@ public class MonthViewFrame extends JFrame implements ChangeListener
 
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Right Panel that will contain the Day Panel, create button, and quit button. It will be displayed
+		//Right Panel that will contain the room status
 		//on the right side of the main window, next to the month view.
 		
 		JPanel rightPanel = new JPanel();
@@ -315,9 +316,8 @@ public class MonthViewFrame extends JFrame implements ChangeListener
 
 	/**
 	 * This represents the "Notify" method of the "View", and required by ChangeListener interface.
-	 * This "Notify" method is called by the "Model" (EventManager ev) every time there data (which includes
-	 * the TreeMap of allEvents and the selectedDate) is updated by "Controllers"
-	 * this happens when either the user navigates to a different date or creates new event.
+	 * This "Notify" method is called by the "Model" (ReservationManager ev) every time their data is updated by "Controllers"
+	 * this happens when either the user navigates to a different date or make/cancel reservations.
 	 * This method inovkes accessor method on "Model" to retrieve newly updated method, then it refreshes the "Views"
 	 * @param e ChangeEvent is the event object thrown by the event sources like the buttons.
 	 */

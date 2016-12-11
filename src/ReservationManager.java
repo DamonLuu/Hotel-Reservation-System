@@ -37,6 +37,26 @@ public class ReservationManager implements Serializable
 
 	//Arraylist of ChangeLister for MVC
 	private ArrayList<ChangeListener> cListeners;
+
+	/**
+	 * Constructor initializes the data structures.
+	 * Loads in file of existing reservation if one exists.
+	 */
+	public ReservationManager() 
+	{
+		
+		for(int i=0;i<10;i++)
+		{allRooms[i] = new Room("Luxury",i);}
+
+		for(int i=10;i<20;i++)
+		{allRooms[i] = new Room("Economy",i);}
+
+		selectedDate = new GregorianCalendar();
+
+		cListeners = new ArrayList<ChangeListener>();
+		
+		this.loadReservation(); //load existing reservation from file when program starts.
+	}	
 	
 	/**
 	 * Accessor method
@@ -107,22 +127,6 @@ public class ReservationManager implements Serializable
 		}
 
 		return printout;
-	}
-
-	/**
-	 * Constructor initializes the Room objects in the arrays
-	 */
-	public ReservationManager() 
-	{
-		for(int i=0;i<10;i++)
-		{allRooms[i] = new Room("Luxury",i);}
-
-		for(int i=10;i<20;i++)
-		{allRooms[i] = new Room("Economy",i);}
-
-		selectedDate = new GregorianCalendar();
-
-		cListeners = new ArrayList<ChangeListener>();
 	}
 
 	/**
